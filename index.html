@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viaje a Italia · Julio–Agosto 2026</title>
+<style>
+  :root {
+    --c-roma: #e07a5f;
+    --c-salerno: #3d9970;
+    --c-florencia: #c9a063;
+    --c-venecia: #6c8ebf;
+    --c-munich: #7b6dab;
+    --c-francia: #d36a8e;
+    --c-vuelo: #4a4a4a;
+    --bg: #faf7f2;
+    --card: #ffffff;
+    --text: #2b2b2b;
+    --text-soft: #6c6c6c;
+    --border: #e5e2da;
+    --accent: #c9302c;
+    --shadow: 0 1px 3px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  header.hero { background: linear-gradient(135deg, #2b3a4d 0%, #4a5d7a 100%); color: white; padding: 60px 24px 48px; text-align: center; position: relative; overflow: hidden; }
+  header.hero::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(circle at 20% 40%, rgba(255,255,255,.06) 0%, transparent 40%), radial-gradient(circle at 80% 60%, rgba(255,255,255,.05) 0%, transparent 40%); }
+  .hero h1 { font-size: 2.6em; margin: 0 0 6px; font-weight: 700; letter-spacing: -.5px; position: relative; }
+  .hero .subtitle { font-size: 1.1em; opacity: .85; margin: 0 0 18px; position: relative; }
+  .hero .meta { font-size: .92em; opacity: .7; position: relative; }
+  .nav-pills { position: sticky; top: 0; z-index: 50; background: rgba(250, 247, 242, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 12px 16px; overflow-x: auto; white-space: nowrap; display: flex; gap: 8px; justify-content: center; scrollbar-width: thin; }
+  .nav-pills a { flex-shrink: 0; padding: 7px 14px; border-radius: 999px; background: white; color: var(--text); text-decoration: none; font-size: .88em; font-weight: 600; border: 1px solid var(--border); transition: all .2s; }
+  .nav-pills a:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+  .nav-pills a[data-c="roma"] { border-left: 3px solid var(--c-roma); }
+  .nav-pills a[data-c="salerno"] { border-left: 3px solid var(--c-salerno); }
+  .nav-pills a[data-c="florencia"] { border-left: 3px solid var(--c-florencia); }
+  .nav-pills a[data-c="venecia"] { border-left: 3px solid var(--c-venecia); }
+  .nav-pills a[data-c="munich"] { border-left: 3px solid var(--c-munich); }
+  .nav-pills a[data-c="francia"] { border-left: 3px solid var(--c-francia); }
+  main { max-width: 980px; margin: 0 auto; padding: 24px 18px 80px; }
+  .stage { margin: 36px 0 18px; padding: 14px 18px; border-radius: 12px; color: white; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; box-shadow: var(--shadow); }
+  .stage[data-c="roma"] { background: linear-gradient(135deg, #e07a5f, #c5644a); }
+  .stage[data-c="salerno"] { background: linear-gradient(135deg, #3d9970, #2f7b59); }
+  .stage[data-c="florencia"] { background: linear-gradient(135deg, #c9a063, #a8843f); }
+  .stage[data-c="venecia"] { background: linear-gradient(135deg, #6c8ebf, #4d6d9e); }
+  .stage[data-c="munich"] { background: linear-gradient(135deg, #7b6dab, #5c5188); }
+  .stage[data-c="francia"] { background: linear-gradient(135deg, #d36a8e, #ae4c70); }
+  .stage[data-c="vuelo"] { background: linear-gradient(135deg, #4a4a4a, #2b2b2b); }
+  .stage h2 { margin: 0; font-size: 1.3em; font-weight: 700; }
+  .stage .stage-meta { font-size: .9em; opacity: .9; }
+  .day { background: var(--card); border-radius: 14px; margin: 12px 0; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; transition: transform .18s; }
+  .day:hover { transform: translateY(-1px); }
+  .day-header { display: flex; align-items: center; gap: 14px; padding: 14px 18px; cursor: pointer; user-select: none; border-bottom: 1px solid transparent; transition: background .15s; }
+  .day-header:hover { background: #fbf9f5; }
+  .day.open .day-header { border-bottom-color: var(--border); }
+  .day-date { background: #f0ece4; color: var(--text); border-radius: 10px; padding: 6px 10px; font-weight: 700; font-size: .82em; min-width: 64px; text-align: center; line-height: 1.2; }
+  .day-date small { display: block; font-size: .7em; font-weight: 600; opacity: .65; }
+  .day-title { flex: 1; font-weight: 600; font-size: 1em; }
+  .day-pill { font-size: .72em; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: #efe9dc; color: #5a4d2f; margin-left: 6px; }
+  .day-pill[data-c="roma"] { background: #fbe5da; color: #82371f; }
+  .day-pill[data-c="salerno"] { background: #d8ebe1; color: #1d5238; }
+  .day-pill[data-c="florencia"] { background: #f5ead0; color: #6b541a; }
+  .day-pill[data-c="venecia"] { background: #dde6f3; color: #2a466e; }
+  .day-pill[data-c="munich"] { background: #e3dded; color: #3b305e; }
+  .day-pill[data-c="francia"] { background: #f5d9e3; color: #74304c; }
+  .day-pill[data-c="vuelo"] { background: #dcdcdc; color: #1c1c1c; }
+  .chev { font-size: .85em; color: var(--text-soft); transition: transform .2s; }
+  .day.open .chev { transform: rotate(180deg); }
+  .day-body { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+  .day.open .day-body { max-height: 1200px; }
+  .day-body-inner { padding: 16px 18px 18px; }
+  .activities { margin: 0 0 12px; padding: 0; list-style: none; }
+  .activities li { padding: 6px 0 6px 24px; position: relative; color: var(--text); font-size: .96em; display: flex; align-items: flex-start; gap: 8px; flex-wrap: wrap; }
+  .activities li::before { content: "•"; position: absolute; left: 8px; top: 5px; color: var(--accent); font-weight: 700; }
+  .activities li .info-btn { margin-left: auto; }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; padding-top: 12px; border-top: 1px dashed var(--border); }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 13px; border-radius: 8px; text-decoration: none; font-size: .85em; font-weight: 600; border: 1px solid var(--border); background: white; color: var(--text); transition: all .15s; cursor: pointer; }
+  .btn:hover { background: #f4f1ea; transform: translateY(-1px); }
+  .btn-maps { color: #1a73e8; }
+  .btn-air { color: #ff385c; }
+  .btn-train { color: #c9302c; }
+  .btn-plane { color: #5c5188; }
+  .info-btn { padding: 4px 10px; font-size: .78em; font-weight: 600; border-radius: 999px; background: #fff5e9; color: #b06a00; border: 1px solid #f0d6a0; cursor: pointer; transition: all .15s; white-space: nowrap; }
+  .info-btn:hover { background: #fdebd0; transform: translateY(-1px); }
+  .transport { background: linear-gradient(135deg, #fff8e7, #fdf3d5); border-left: 4px solid var(--accent); margin: 14px 0; padding: 14px 18px; border-radius: 8px; font-size: .94em; }
+  .transport-title { font-weight: 700; margin-bottom: 6px; color: #6b3a14; }
+  .booking { background: linear-gradient(135deg, #eaf7ef, #def0e6); border-left: 4px solid var(--c-salerno); margin: 12px 0 4px; padding: 12px 16px; border-radius: 8px; font-size: .9em; }
+  .booking-title { font-weight: 700; color: #1f6b47; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .booking-grid { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; }
+  .booking-grid dt { color: var(--text-soft); font-weight: 600; }
+  .booking-grid dd { margin: 0; }
+  .booking a { color: #1f6b47; }
+  .transport-detail { color: var(--text); font-size: .92em; }
+  .transport-detail .price { font-weight: 700; color: var(--accent); }
+  .badge-rec { display: inline-block; background: var(--accent); color: white; font-size: .7em; font-weight: 700; padding: 2px 7px; border-radius: 999px; margin-left: 6px; text-transform: uppercase; letter-spacing: .5px; }
+  .lodging { background: #f4f8fb; border-left: 4px solid var(--c-venecia); margin: 12px 0 0; padding: 12px 16px; border-radius: 8px; font-size: .92em; }
+  .lodging strong { display: block; font-size: .8em; text-transform: uppercase; color: var(--text-soft); letter-spacing: .5px; margin-bottom: 4px; }
+  .summary { background: white; border-radius: 14px; border: 1px solid var(--border); padding: 22px 24px; margin: 0 0 24px; box-shadow: var(--shadow); }
+  .summary h3 { margin: 0 0 14px; font-size: 1.1em; }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; }
+  .summary-stat { text-align: center; padding: 10px; border-radius: 10px; background: #fbf9f5; }
+  .summary-stat .big { display: block; font-size: 1.7em; font-weight: 800; color: var(--accent); line-height: 1; }
+  .summary-stat .label { font-size: .8em; color: var(--text-soft); margin-top: 4px; }
+  .filter-row { text-align: center; margin: 0 0 18px; font-size: .88em; color: var(--text-soft); }
+  .filter-btn { display: inline-block; margin: 4px; padding: 5px 12px; background: white; border: 1px solid var(--border); border-radius: 999px; cursor: pointer; font-size: .85em; font-weight: 600; transition: all .15s; }
+  .filter-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+  .filter-btn:hover:not(.active) { background: #f4f1ea; }
+  footer { text-align: center; padding: 36px 18px 24px; color: var(--text-soft); font-size: .85em; border-top: 1px solid var(--border); margin-top: 40px; }
+
+  /* Modal */
+  .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(4px); }
+  .modal-backdrop.open { display: flex; }
+  .modal { background: white; border-radius: 16px; max-width: 720px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,.3); animation: slideUp .3s ease; }
+  @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal-header { position: sticky; top: 0; background: white; padding: 18px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; z-index: 5; }
+  .modal-title { margin: 0; font-size: 1.35em; font-weight: 700; }
+  .modal-subtitle { font-size: .85em; color: var(--text-soft); margin-top: 2px; }
+  .modal-close { background: #f0ece4; border: none; width: 36px; height: 36px; border-radius: 50%; font-size: 1.4em; cursor: pointer; color: var(--text); display: flex; align-items: center; justify-content: center; transition: background .15s; }
+  .modal-close:hover { background: #e0d9c6; }
+  .modal-body { padding: 0; }
+  .modal-photos { display: flex; gap: 0; overflow-x: auto; scroll-snap-type: x mandatory; }
+  .modal-photos img { width: 100%; max-height: 360px; object-fit: cover; scroll-snap-align: start; flex-shrink: 0; }
+  .modal-photos:has(img+img) img { width: 90%; }
+  .modal-content { padding: 22px 24px; }
+  .modal-section { margin-bottom: 20px; }
+  .modal-section h4 { margin: 0 0 8px; font-size: 1em; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .5px; font-size: .82em; }
+  .modal-section p { margin: 0 0 8px; font-size: .96em; color: var(--text); }
+  .modal-info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 8px; }
+  .modal-info-item { background: #fbf9f5; padding: 10px 12px; border-radius: 8px; font-size: .85em; }
+  .modal-info-item strong { display: block; color: var(--text-soft); font-size: .78em; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 2px; font-weight: 700; }
+  .modal-list { margin: 0; padding: 0; list-style: none; }
+  .modal-list li { padding: 4px 0 4px 20px; position: relative; font-size: .94em; }
+  .modal-list li::before { content: "→"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+  .modal-tip { background: #fff8e7; border-left: 3px solid #d4a017; padding: 10px 14px; border-radius: 6px; font-size: .9em; margin-top: 8px; }
+  .modal-links { display: flex; gap: 8px; flex-wrap: wrap; padding: 0 24px 24px; }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 2em; }
+    .stage h2 { font-size: 1.1em; }
+    .day-header { padding: 12px 14px; }
+    .day-body-inner { padding: 14px; }
+    .day-date { min-width: 56px; padding: 5px 8px; font-size: .78em; }
+    main { padding: 16px 12px 60px; }
+    .activities li { font-size: .92em; }
+    .info-btn { padding: 3px 8px; font-size: .72em; }
+    .modal { max-height: 95vh; }
+    .modal-photos img { max-height: 240px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Viaje a Italia · Verano 2026</h1>
+  <div class="subtitle">Roma · Costa Amalfitana · Florencia · Venecia · Múnich · Chamonix</div>
+  <div class="meta">14 de julio &mdash; 13 de agosto, 2026 &middot; Familia de 4</div>
+</header>
+
+<nav class="nav-pills">
+  <a href="#roma1" data-c="roma">Roma</a>
+  <a href="#salerno" data-c="salerno">Salerno · Amalfi</a>
+  <a href="#florencia" data-c="florencia">Florencia</a>
+  <a href="#venecia" data-c="venecia">Venecia</a>
+  <a href="#munich" data-c="munich">Múnich</a>
+  <a href="#francia" data-c="francia">Chamonix · Boda</a>
+  <a href="#roma2" data-c="roma">Roma (final)</a>
+</nav>
+
+<main>
+
+  <section class="summary">
+    <h3>Resumen del viaje</h3>
+    <div class="summary-grid">
+      <div class="summary-stat"><span class="big">31</span><span class="label">días</span></div>
+      <div class="summary-stat"><span class="big">7</span><span class="label">ciudades base</span></div>
+      <div class="summary-stat"><span class="big">5</span><span class="label">países</span></div>
+      <div class="summary-stat"><span class="big">1</span><span class="label">boda 🥂</span></div>
+    </div>
+  </section>
+
+  <div class="filter-row">
+    Mostrar:
+    <span class="filter-btn active" data-filter="all">Todos los días</span>
+    <span class="filter-btn" data-filter="open">Expandir todos</span>
+    <span class="filter-btn" data-filter="close">Contraer todos</span>
+  </div>
+
+  <!-- VUELO -->
+  <div class="stage" data-c="vuelo" id="vuelo">
+    <h2>✈️ Vuelo internacional</h2>
+    <span class="stage-meta">Santiago ↔ Roma</span>
+  </div>
+
+  <div class="day" data-c="vuelo">
+    <div class="day-header">
+      <div class="day-date">14<small>JUL · mar</small></div>
+      <div class="day-title">Vuelo Santiago → Roma <span class="day-pill" data-c="vuelo">en vuelo</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Salida desde Santiago de Chile</li>
+        <li>Vuelo nocturno transatlántico (~16h total con escalas)</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- ROMA 1 -->
+  <div class="stage" data-c="roma" id="roma1">
+    <h2>🏛️ Roma (llegada)</h2>
+    <span class="stage-meta">15 → 18 julio · 3 noches</span>
+  </div>
+
+  <div class="day" data-c="roma">
+    <div class="day-header">
+      <div class="day-date">15<small>JUL · mié</small></div>
+      <div class="day-title">Llegada a Roma <span class="day-pill" data-c="roma">Roma</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Llegada FCO 10:15 AM</li>
+        <li>Check-in en Monti (barrio del alojamiento)</li>
+        <li>Paseo liviano por el barrio para combatir el jet lag</li>
+        <li>Cena en Trastevere <button class="info-btn" onclick="openModal('trastevere')">ℹ️ Info</button></li>
+      </ul>
+      <div class="lodging">
+        <strong>Alojamiento Roma</strong>
+        Via Filippo Turati, 86
+      </div>
+      <div class="actions">
+        <a class="btn btn-maps" href="https://maps.app.goo.gl/MHbL1LZrDeQkVeHF9" target="_blank" rel="noopener">📍 Google Maps</a>
+        <a class="btn btn-air" href="https://www.airbnb.com/" target="_blank" rel="noopener">🏠 Airbnb</a>
+        <a class="btn" href="https://www.adr.it/fiumicino" target="_blank" rel="noopener">✈️ Aeropuerto FCO</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="roma">
+    <div class="day-header">
+      <div class="day-date">16<small>JUL · jue</small></div>
+      <div class="day-title">Coliseo + Foro Romano + Palatino <span class="day-pill" data-c="roma">Roma</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Coliseo (mañana temprano) <button class="info-btn" onclick="openModal('coliseo')">ℹ️ Info</button></li>
+        <li>Foro Romano <button class="info-btn" onclick="openModal('foro_romano')">ℹ️ Info</button></li>
+        <li>Monte Palatino <button class="info-btn" onclick="openModal('palatino')">ℹ️ Info</button></li>
+        <li><strong>Reservar entradas en ticketing.colosseo.it</strong> (entradas se agotan)</li>
+      </ul>
+      <div class="actions">
+        <a class="btn" href="https://ticketing.colosseo.it/es/eventi/full-experience-sotterranei-e-arena/" target="_blank" rel="noopener">🎫 Comprar entradas (Full Experience)</a>
+        <a class="btn btn-maps" href="https://www.google.com/maps/search/?api=1&query=Colosseo+Roma" target="_blank" rel="noopener">📍 Coliseo</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="roma">
+    <div class="day-header">
+      <div class="day-date">17<small>JUL · vie</small></div>
+      <div class="day-title">Vaticano + Centro histórico <span class="day-pill" data-c="roma">Roma</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li><strong>08:30</strong> · Visita guiada Museos Vaticanos + Capilla Sixtina <button class="info-btn" onclick="openModal('vaticano')">ℹ️ Info</button></li>
+        <li>Capilla Sixtina <button class="info-btn" onclick="openModal('capilla_sixtina')">ℹ️ Info</button></li>
+        <li>Plaza Navona (almorzar) <button class="info-btn" onclick="openModal('navona')">ℹ️ Info</button></li>
+        <li>Pantheon <button class="info-btn" onclick="openModal('pantheon')">ℹ️ Info</button></li>
+        <li>Fontana di Trevi <button class="info-btn" onclick="openModal('trevi')">ℹ️ Info</button></li>
+      </ul>
+      <div class="booking">
+        <div class="booking-title">✅ Reserva confirmada · Tour en español (Civitatis)</div>
+        <dl class="booking-grid">
+          <dt>Hora</dt><dd><strong>08:30</strong> (llegar 08:20 — empieza puntual)</dd>
+          <dt>Pax</dt><dd>4 (2 adultos + 2 niños)</dd>
+          <dt>Reserva</dt><dd>A39468162 · ref. 133714591</dd>
+          <dt>Punto de encuentro</dt><dd>Viale Giulio Cesare 229, puerta del Cine Giulio Cesare (100 m del metro Ottaviano, Línea A). Guía con cartel <strong>TOURISMOTION</strong>.</dd>
+          <dt>Proveedor</dt><dd>Tourismotion Roma · +39 0692926678 (WhatsApp, solo emergencias)</dd>
+          <dt>Estado</dt><dd>Pagado por completo · 361,88 €</dd>
+          <dt>Vestimenta</dt><dd>Hombros y rodillas cubiertos (obligatorio en la Capilla Sixtina)</dd>
+        </dl>
+      </div>
+      <div class="actions">
+        <a class="btn" href="voucher-vaticano-A39468162.pdf" download target="_blank" rel="noopener">📄 Descargar voucher (PDF)</a>
+        <a class="btn" href="https://goo.gl/maps/pMNzpiqXGQ5SnMRU6" target="_blank" rel="noopener">📍 Punto de encuentro</a>
+        <a class="btn" href="https://www.civitatis.com/es/roma/visita-guiada-museos-vaticanos-capilla-sixtina/" target="_blank" rel="noopener">🎫 Civitatis Vaticano</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="transport">
+    <div class="transport-title">🚄 Tren Roma → Salerno · 18-jul</div>
+    <div class="transport-detail">
+      <strong>Frecciarossa 9515 directo</strong>: 11:00 → 13:02 (2h 2min) · <span class="price">~104€ total (4 pax)</span> <span class="badge-rec">Recomendado</span><br>
+      Alternativa más barata: <strong>Frecciarossa 9611 + Regionale</strong> 11:25 → 13:30 (1 transbordo): ~69€<br>
+      Reserva en <a href="https://www.trenitalia.com" target="_blank">trenitalia.com</a> · Aplicar "Bimbi Gratis"
+    </div>
+  </div>
+
+  <!-- SALERNO -->
+  <div class="stage" data-c="salerno" id="salerno">
+    <h2>🌊 Salerno · Costa Amalfitana</h2>
+    <span class="stage-meta">18 → 23 julio · 5 noches</span>
+  </div>
+
+  <div class="day" data-c="salerno">
+    <div class="day-header">
+      <div class="day-date">18<small>JUL · sáb</small></div>
+      <div class="day-title">Llegada a Salerno · Centro histórico <span class="day-pill" data-c="salerno">Salerno</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Tren desde Roma (sale 11:00, llega ~13:00)</li>
+        <li>Check-in</li>
+        <li>Paseo por el centro histórico y el puerto <button class="info-btn" onclick="openModal('salerno')">ℹ️ Info</button></li>
+      </ul>
+      <div class="lodging">
+        <strong>Alojamiento Salerno</strong>
+        Via Luigi Guercio, 191, 84134 Salerno SA
+      </div>
+      <div class="actions">
+        <a class="btn btn-maps" href="https://maps.app.goo.gl/WboiMVxwnLXkCQxeA" target="_blank" rel="noopener">📍 Google Maps</a>
+        <a class="btn btn-air" href="https://www.airbnb.com/" target="_blank" rel="noopener">🏠 Airbnb</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="salerno">
+    <div class="day-header">
+      <div class="day-date">19<small>JUL · dom</small></div>
+      <div class="day-title">Ferry a Positano <span class="day-pill" data-c="salerno">Excursión</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Ferry Travelmar Salerno → Positano (~1h 15min, €15-22/p) <button class="info-btn" onclick="openModal('positano')">ℹ️ Info</button></li>
+        <li>Paseo por los callejones</li>
+        <li>Baño en la playa Spiaggia Grande</li>
+        <li>Vuelta a Salerno en ferry de tarde</li>
+      </ul>
+      <div class="actions">
+        <a class="btn btn-train" href="https://www.travelmar.it/en/timetable" target="_blank" rel="noopener">⛴️ Travelmar</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="salerno">
+    <div class="day-header">
+      <div class="day-date">20<small>JUL · lun</small></div>
+      <div class="day-title">Amalfi + bus a Ravello <span class="day-pill" data-c="salerno">Excursión</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Ferry Salerno → Amalfi (~35 min, €10-15/p) <button class="info-btn" onclick="openModal('amalfi')">ℹ️ Info</button></li>
+        <li>Bus SITA Amalfi → Ravello (~25 min, €1,80/p) <button class="info-btn" onclick="openModal('ravello')">ℹ️ Info</button></li>
+        <li>Jardines de Villa Rufolo <button class="info-btn" onclick="openModal('villa_rufolo')">ℹ️ Info</button></li>
+        <li>Almuerzo en Ravello con vista al mar</li>
+        <li>Regreso por la tarde</li>
+      </ul>
+      <div class="actions">
+        <a class="btn btn-train" href="https://www.travelmar.it/en/timetable" target="_blank" rel="noopener">⛴️ Ferry Travelmar</a>
+        <a class="btn" href="https://www.sitasudtrasporti.it" target="_blank" rel="noopener">🚌 Bus SITA</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="salerno">
+    <div class="day-header">
+      <div class="day-date">21<small>JUL · mar</small></div>
+      <div class="day-title">Día completo en Capri <span class="day-pill" data-c="salerno">Excursión</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li><strong>Ferry NLG matinal Salerno → Capri</strong> (única salida directa, ~08:30) <button class="info-btn" onclick="openModal('capri')">ℹ️ Info</button></li>
+        <li>Gruta Azul (€18/p, sujeto al estado del mar) <button class="info-btn" onclick="openModal('gruta_azul')">ℹ️ Info</button></li>
+        <li>Anacapri en bus, Monte Solaro <button class="info-btn" onclick="openModal('anacapri')">ℹ️ Info</button></li>
+        <li>Última salida directa Capri → Salerno ~17:00-18:00</li>
+      </ul>
+      <div class="transport-detail" style="margin-top:6px;padding:8px;background:#fbf3e7;border-radius:6px;">
+        <span class="price">€28-40/p</span> ida · <strong>Imprescindible reservar</strong>
+      </div>
+      <div class="actions">
+        <a class="btn btn-train" href="https://www.navlib.it" target="_blank" rel="noopener">⛴️ NLG (navlib.it)</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="salerno">
+    <div class="day-header">
+      <div class="day-date">22<small>JUL · mié</small></div>
+      <div class="day-title">Pompeya + Nápoles <span class="day-pill" data-c="salerno">Excursión</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Tren regional Salerno → Pompeya Scavi (~40 min, €2,90/p) <button class="info-btn" onclick="openModal('pompeya')">ℹ️ Info</button></li>
+        <li>Recorrido por las ruinas (3-4 horas, llevar agua y sombrero)</li>
+        <li>Tren Pompeya → Napoli Centrale (~30 min, €3,60/p) <button class="info-btn" onclick="openModal('napoles')">ℹ️ Info</button></li>
+        <li>Almuerzo: pizza napolitana (Da Michele, Sorbillo)</li>
+        <li>Regreso a Salerno por la tarde</li>
+      </ul>
+      <div class="actions">
+        <a class="btn btn-train" href="https://www.trenitalia.com" target="_blank" rel="noopener">🚄 Trenitalia regional</a>
+        <a class="btn btn-maps" href="https://www.google.com/maps/search/?api=1&query=Pizzeria+Da+Michele+Napoli" target="_blank" rel="noopener">🍕 Da Michele</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="transport">
+    <div class="transport-title">🚄 Tren Salerno → Florencia · 23-jul</div>
+    <div class="transport-detail">
+      <strong>Frecciarossa 9544 directo</strong>: 12:50 → 16:46 (3h 56min) · <span class="price">~77€ total (4 pax)</span> <span class="badge-rec">Recomendado · family-friendly</span><br>
+      Mejor que salir al amanecer: mismo precio, niños descansados, llegada con tarde libre.<br>
+      Reserva en <a href="https://www.trenitalia.com" target="_blank">trenitalia.com</a>
+    </div>
+  </div>
+
+  <!-- FLORENCIA -->
+  <div class="stage" data-c="florencia" id="florencia">
+    <h2>🎨 Florencia · Toscana</h2>
+    <span class="stage-meta">23 → 28 julio · 5 noches</span>
+  </div>
+
+  <div class="day" data-c="florencia">
+    <div class="day-header">
+      <div class="day-date">23<small>JUL · jue</small></div>
+      <div class="day-title">Llegada a Florencia · Ponte Vecchio <span class="day-pill" data-c="florencia">Florencia</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Frecciarossa desde Salerno (sale 12:50, llega 16:46)</li>
+        <li>Check-in en Oltrarno (barrio del alojamiento)</li>
+        <li>Ponte Vecchio al atardecer <button class="info-btn" onclick="openModal('ponte_vecchio')">ℹ️ Info</button></li>
+        <li>Cena local en Oltrarno</li>
+      </ul>
+      <div class="lodging">
+        <strong>Alojamiento Florencia</strong>
+        Oltrarno (cruzando el Arno)
+      </div>
+      <div class="actions">
+        <a class="btn btn-maps" href="https://www.google.com/maps/search/?api=1&query=Oltrarno+Firenze" target="_blank" rel="noopener">📍 Google Maps</a>
+        <a class="btn btn-air" href="https://www.airbnb.com/" target="_blank" rel="noopener">🏠 Airbnb</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="florencia">
+    <div class="day-header">
+      <div class="day-date">24<small>JUL · vie</small></div>
+      <div class="day-title">Uffizi + Duomo + Baptisterio <span class="day-pill" data-c="florencia">Florencia</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Galleria degli Uffizi (<strong>reservar online</strong>, abre 8:15) <button class="info-btn" onclick="openModal('uffizi')">ℹ️ Info</button></li>
+        <li>Almuerzo cerca de Piazza della Signoria</li>
+        <li>Duomo de Florencia <button class="info-btn" onclick="openModal('duomo_firenze')">ℹ️ Info</button></li>
+        <li>Baptisterio de San Juan <button class="info-btn" onclick="openModal('baptisterio_firenze')">ℹ️ Info</button></li>
+      </ul>
+      <div class="actions">
+        <a class="btn" href="https://www.uffizi.it/" target="_blank" rel="noopener">🎫 Uffizi (reserva)</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="florencia">
+    <div class="day-header">
+      <div class="day-date">25<small>JUL · sáb</small></div>
+      <div class="day-title">Galería Academia · Piazzale Michelangelo <span class="day-pill" data-c="florencia">Florencia</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Galleria dell'Accademia (David de Miguel Ángel) <button class="info-btn" onclick="openModal('academia_firenze')">ℹ️ Info</button></li>
+        <li>Mercado de San Lorenzo (almuerzo en Mercato Centrale)</li>
+        <li>Piazzale Michelangelo al atardecer <button class="info-btn" onclick="openModal('piazzale_michelangelo')">ℹ️ Info</button></li>
+      </ul>
+      <div class="actions">
+        <a class="btn" href="https://www.galleriaaccademiafirenze.it/" target="_blank" rel="noopener">🎫 Accademia</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="florencia">
+    <div class="day-header">
+      <div class="day-date">26<small>JUL · dom</small></div>
+      <div class="day-title">Excursión a Siena o San Gimignano <span class="day-pill" data-c="florencia">Excursión</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Bus directo Autolinee Toscane (~1h 15min, €9-12/p)</li>
+        <li>Siena: Piazza del Campo, Duomo <button class="info-btn" onclick="openModal('siena')">ℹ️ Info</button></li>
+        <li>San Gimignano: las 13 torres medievales, gelato Dondoli <button class="info-btn" onclick="openModal('san_gimignano')">ℹ️ Info</button></li>
+        <li>Si quieren ambos: arrendar auto por el día (~€60-90)</li>
+      </ul>
+      <div class="actions">
+        <a class="btn" href="https://www.at-bus.it/en/" target="_blank" rel="noopener">🚌 Autolinee Toscane</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="florencia">
+    <div class="day-header">
+      <div class="day-date">27<small>JUL · lun</small></div>
+      <div class="day-title">Jardín de Bóboli · Oltrarno <span class="day-pill" data-c="florencia">Florencia</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Palazzo Pitti <button class="info-btn" onclick="openModal('palazzo_pitti')">ℹ️ Info</button></li>
+        <li>Jardín de Bóboli (verde y vistas) <button class="info-btn" onclick="openModal('boboli')">ℹ️ Info</button></li>
+        <li>Paseo por el Oltrarno: talleres de artesanos</li>
+        <li>Cena en Santo Spirito</li>
+      </ul>
+      <div class="actions">
+        <a class="btn" href="https://www.uffizi.it/palazzo-pitti" target="_blank" rel="noopener">🎫 Palazzo Pitti</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="transport">
+    <div class="transport-title">🚄 Tren Florencia → Venecia · 28-jul</div>
+    <div class="transport-detail">
+      <strong>Frecciarossa 9404 directo</strong>: 08:20 → 10:34 (2h 14min) · <span class="price">~57€ total (4 pax)</span> <span class="badge-rec">Excelente precio</span><br>
+      Llegada a Venezia Santa Lucia (corazón de Venecia). Vaporetto al alojamiento.
+    </div>
+  </div>
+
+  <!-- VENECIA -->
+  <div class="stage" data-c="venecia" id="venecia">
+    <h2>🚤 Venecia</h2>
+    <span class="stage-meta">28 → 31 julio · 3 noches</span>
+  </div>
+
+  <div class="day" data-c="venecia">
+    <div class="day-header">
+      <div class="day-date">28<small>JUL · mar</small></div>
+      <div class="day-title">Llegada a Venecia · Cannaregio <span class="day-pill" data-c="venecia">Venecia</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Tren desde Florencia (llega 10:34)</li>
+        <li>Vaporetto desde Venezia Santa Lucia</li>
+        <li>Check-in en Cannaregio</li>
+        <li>Paseo por el Gran Canal <button class="info-btn" onclick="openModal('gran_canal')">ℹ️ Info</button></li>
+      </ul>
+      <div class="lodging">
+        <strong>Alojamiento Venecia</strong>
+        Cannaregio
+      </div>
+      <div class="actions">
+        <a class="btn btn-maps" href="https://maps.app.goo.gl/5hzLMYzpuHF6WBsn6" target="_blank" rel="noopener">📍 Google Maps</a>
+        <a class="btn btn-air" href="https://www.airbnb.com/" target="_blank" rel="noopener">🏠 Airbnb</a>
+        <a class="btn" href="https://actv.avmspa.it/en" target="_blank" rel="noopener">🚤 Vaporetto ACTV</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="venecia">
+    <div class="day-header">
+      <div class="day-date">29<small>JUL · mié</small></div>
+      <div class="day-title">San Marcos · Palacio Ducal <span class="day-pill" data-c="venecia">Venecia</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Plaza San Marcos temprano <button class="info-btn" onclick="openModal('san_marcos')">ℹ️ Info</button></li>
+        <li>Basílica de San Marcos (reservar) <button class="info-btn" onclick="openModal('basilica_marcos')">ℹ️ Info</button></li>
+        <li>Palacio Ducal + Puente de los Suspiros <button class="info-btn" onclick="openModal('palacio_ducal')">ℹ️ Info</button></li>
+        <li>Paseo en vaporetto por el Gran Canal (línea 1)</li>
+      </ul>
+      <div class="actions">
+        <a class="btn" href="https://www.basilicasanmarco.it/" target="_blank" rel="noopener">🎫 Basílica San Marcos</a>
+        <a class="btn" href="https://palazzoducale.visitmuve.it/" target="_blank" rel="noopener">🎫 Palacio Ducal</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="venecia">
+    <div class="day-header">
+      <div class="day-date">30<small>JUL · jue</small></div>
+      <div class="day-title">Murano y Burano <span class="day-pill" data-c="venecia">Excursión</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Vaporetto línea 12 desde Fondamente Nove → Murano <button class="info-btn" onclick="openModal('murano')">ℹ️ Info</button></li>
+        <li>Continuación a Burano (casas de colores) <button class="info-btn" onclick="openModal('burano')">ℹ️ Info</button></li>
+        <li>Almuerzo en Burano</li>
+        <li>Regreso por la tarde</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <div class="transport">
+    <div class="transport-title">🚄 Tren Venecia → Múnich directo · 31-jul</div>
+    <div class="transport-detail">
+      <strong>Railjet/EC directo ÖBB</strong>: ~08:00 → ~15:00 (6h 40min) · <span class="price">~€80-150 total (4 pax)</span> <span class="badge-rec">Recomendado</span><br>
+      Línea del Brennero: una de las rutas más espectaculares de Europa (Dolomitas + valle del Inn).<br>
+      <strong>Niños hasta 14 años viajan GRATIS en ÖBB</strong> con un adulto pagando.<br>
+      Reserva Sparschiene en <a href="https://www.oebb.at/en" target="_blank">oebb.at</a>
+    </div>
+  </div>
+
+  <!-- MUNICH -->
+  <div class="stage" data-c="munich" id="munich">
+    <h2>🍻 Múnich · Baviera</h2>
+    <span class="stage-meta">31 julio → 5 agosto · 5 noches</span>
+  </div>
+
+  <div class="day" data-c="munich">
+    <div class="day-header">
+      <div class="day-date">31<small>JUL · vie</small></div>
+      <div class="day-title">Llegada a Múnich · Marienplatz <span class="day-pill" data-c="munich">Múnich</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Tren desde Venecia (llega ~15:00 a München Hbf)</li>
+        <li>Check-in</li>
+        <li>Plaza Marienplatz · Rathaus-Glockenspiel (17:00) <button class="info-btn" onclick="openModal('marienplatz')">ℹ️ Info</button></li>
+        <li>Cervecería Hofbräuhaus <button class="info-btn" onclick="openModal('hofbrauhaus')">ℹ️ Info</button></li>
+      </ul>
+      <div class="lodging">
+        <strong>Alojamiento Múnich</strong>
+        Por confirmar
+      </div>
+      <div class="actions">
+        <a class="btn" href="https://www.hofbraeuhaus.de/en/" target="_blank" rel="noopener">🍺 Hofbräuhaus</a>
+        <a class="btn btn-air" href="https://www.airbnb.com/" target="_blank" rel="noopener">🏠 Airbnb</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="munich">
+    <div class="day-header">
+      <div class="day-date">01<small>AGO · sáb</small></div>
+      <div class="day-title">Deutsches Museum + Viktualienmarkt <span class="day-pill" data-c="munich">Múnich</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Deutsches Museum (IDEAL PARA NIÑOS) <button class="info-btn" onclick="openModal('deutsches_museum')">ℹ️ Info</button></li>
+        <li>Almuerzo en Viktualienmarkt <button class="info-btn" onclick="openModal('viktualienmarkt')">ℹ️ Info</button></li>
+        <li>Tarde libre por el centro</li>
+      </ul>
+      <div class="actions">
+        <a class="btn" href="https://www.deutsches-museum.de/en" target="_blank" rel="noopener">🎫 Deutsches Museum</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="munich">
+    <div class="day-header">
+      <div class="day-date">02<small>AGO · dom</small></div>
+      <div class="day-title">Kelheim · Weltenburg · Ratisbona <span class="day-pill" data-c="munich">Excursión</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Tren regional Múnich → Kelheim (~2h con cambio) <button class="info-btn" onclick="openModal('kelheim')">ℹ️ Info</button></li>
+        <li>Barco Schiffahrt por el Donaudurchbruch (~35 min)</li>
+        <li>Almuerzo en Kloster Weltenburg (monasterio cervecero) <button class="info-btn" onclick="openModal('weltenburg')">ℹ️ Info</button></li>
+        <li>Tren a Ratisbona (Regensburg) para la cena <button class="info-btn" onclick="openModal('ratisbona')">ℹ️ Info</button></li>
+        <li><strong>Bayern-Ticket familiar €39</strong> cubre todo el día regional</li>
+      </ul>
+      <div class="actions">
+        <a class="btn" href="https://www.bahn.de/" target="_blank" rel="noopener">🚄 DB Bahn</a>
+        <a class="btn" href="https://www.schiffahrt-kelheim.de/" target="_blank" rel="noopener">⛴️ Schiffahrt Kelheim</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="munich">
+    <div class="day-header">
+      <div class="day-date">03<small>AGO · lun</small></div>
+      <div class="day-title">Excursión a Salzburgo <span class="day-pill" data-c="munich">Excursión</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Tren Múnich → Salzburgo (ÖBB Railjet ~1h 30min) <button class="info-btn" onclick="openModal('salzburgo')">ℹ️ Info</button></li>
+        <li>Casco antiguo (Patrimonio UNESCO)</li>
+        <li>Casa natal de Mozart, Mirabellgarten <button class="info-btn" onclick="openModal('mirabell')">ℹ️ Info</button></li>
+        <li>Fortaleza Hohensalzburg (funicular) <button class="info-btn" onclick="openModal('hohensalzburg')">ℹ️ Info</button></li>
+        <li>Regreso a Múnich por la noche</li>
+      </ul>
+      <div class="actions">
+        <a class="btn" href="https://www.oebb.at/en" target="_blank" rel="noopener">🚄 ÖBB</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="munich">
+    <div class="day-header">
+      <div class="day-date">04<small>AGO · mar</small></div>
+      <div class="day-title">Englischer Garten · Schwabing <span class="day-pill" data-c="munich">Múnich</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Englischer Garten (parque urbano más grande de Europa) <button class="info-btn" onclick="openModal('englischer_garten')">ℹ️ Info</button></li>
+        <li>Ver a los surfistas en el Eisbach 🏄 <button class="info-btn" onclick="openModal('eisbach')">ℹ️ Info</button></li>
+        <li>Almuerzo en el Biergarten del Chinesischer Turm</li>
+        <li>Paseo por Schwabing (barrio bohemio)</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <div class="transport">
+    <div class="transport-title">✈️ Vuelo Múnich → Ginebra + Shuttle a Chamonix · 5-ago</div>
+    <div class="transport-detail">
+      <strong>Vuelo MUC → GVA</strong>: ~1h 10min · <span class="price">~€70-180/p</span> (EasyJet, Swiss, Lufthansa) <span class="badge-rec">Recomendado</span><br>
+      <strong>Shuttle Ginebra aeropuerto → Chamonix</strong>: ~1h 15min · <span class="price">€40-50/p</span> (Mountain Drop-offs)<br>
+      Total ~4h 30min puerta-a-puerta.
+    </div>
+  </div>
+
+  <!-- FRANCIA -->
+  <div class="stage" data-c="francia" id="francia">
+    <h2>⛰️ Argentière · Chamonix · Boda 🥂</h2>
+    <span class="stage-meta">5 → 10 agosto · 5 noches</span>
+  </div>
+
+  <div class="day" data-c="francia">
+    <div class="day-header">
+      <div class="day-date">05<small>AGO · mié</small></div>
+      <div class="day-title">Viaje Múnich → Argentière <span class="day-pill" data-c="francia">Francia</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Vuelo Múnich → Ginebra (AM)</li>
+        <li>Shuttle Ginebra aeropuerto → Argentière <button class="info-btn" onclick="openModal('argentiere')">ℹ️ Info</button></li>
+        <li>Instalarse · primer contacto con los Alpes franceses <button class="info-btn" onclick="openModal('chamonix')">ℹ️ Info</button></li>
+      </ul>
+      <div class="lodging">
+        <strong>Alojamiento Argentière</strong>
+        Argentière · Alpes franceses
+      </div>
+      <div class="actions">
+        <a class="btn btn-maps" href="https://www.google.com/maps/search/?api=1&query=Argenti%C3%A8re+France" target="_blank" rel="noopener">📍 Google Maps</a>
+        <a class="btn btn-air" href="https://www.airbnb.com/" target="_blank" rel="noopener">🏠 Airbnb</a>
+        <a class="btn" href="https://www.mountaindropoffs.com/" target="_blank" rel="noopener">🚐 Mountain Drop-offs</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="francia">
+    <div class="day-header">
+      <div class="day-date">06<small>AGO · jue</small></div>
+      <div class="day-title">Preparativos boda · Argentière <span class="day-pill" data-c="francia">Francia</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Preparativos boda</li>
+        <li>Paseo por Argentière</li>
+        <li>Chamonix cercano</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="francia">
+    <div class="day-header">
+      <div class="day-date">07<small>AGO · vie</small></div>
+      <div class="day-title">Preparativos boda <span class="day-pill" data-c="francia">Francia</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Preparativos boda</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="francia">
+    <div class="day-header">
+      <div class="day-date">08<small>AGO · sáb</small></div>
+      <div class="day-title">Boda en Argentière 🥂 <span class="day-pill" data-c="francia">DÍA ESPECIAL</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>🥂 <strong>BODA EN ARGENTIÈRE</strong></li>
+      </ul>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="francia">
+    <div class="day-header">
+      <div class="day-date">09<small>AGO · dom</small></div>
+      <div class="day-title">Post-boda · Aiguille du Midi <span class="day-pill" data-c="francia">Francia</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Post-boda · descanso</li>
+        <li>Teleférico Aiguille du Midi (Mont Blanc) <button class="info-btn" onclick="openModal('aiguille_midi')">ℹ️ Info</button></li>
+        <li>Vistas al Mont Blanc <button class="info-btn" onclick="openModal('mont_blanc')">ℹ️ Info</button></li>
+      </ul>
+      <div class="actions">
+        <a class="btn" href="https://www.montblancnaturalresort.com/en/aiguille-du-midi-chamonix" target="_blank" rel="noopener">🚡 Aiguille du Midi</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="transport">
+    <div class="transport-title">✈️ Vuelo Ginebra → Roma · 10-ago</div>
+    <div class="transport-detail">
+      <strong>EasyJet directo GVA → FCO</strong>: ~1h 30min · <span class="price">€55-110/p</span> <span class="badge-rec">Más barato</span><br>
+      Alternativas: ITA Airways €90-160 · Swiss/Lufthansa €110-200 · Vueling €60-130<br>
+      Para Roma desde FCO: Leonardo Express €14/p o taxi flat fare €55.
+    </div>
+  </div>
+
+  <!-- ROMA 2 -->
+  <div class="stage" data-c="roma" id="roma2">
+    <h2>🏛️ Roma (final del viaje)</h2>
+    <span class="stage-meta">10 → 13 agosto · 3 noches</span>
+  </div>
+
+  <div class="day" data-c="roma">
+    <div class="day-header">
+      <div class="day-date">10<small>AGO · lun</small></div>
+      <div class="day-title">Regreso a Roma · Check-in <span class="day-pill" data-c="roma">Roma</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Vuelo Ginebra → Roma Fiumicino</li>
+        <li>Leonardo Express FCO → Termini (€14/p, 32 min)</li>
+        <li>Check-in</li>
+        <li>Cena tranquila</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="roma">
+    <div class="day-header">
+      <div class="day-date">11<small>AGO · mar</small></div>
+      <div class="day-title">Castel Sant'Angelo · Prati <span class="day-pill" data-c="roma">Roma</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Castel Sant'Angelo <button class="info-btn" onclick="openModal('castel')">ℹ️ Info</button></li>
+        <li>Paseo por el barrio Prati</li>
+        <li>Mercato Trionfale (mercado local)</li>
+      </ul>
+      <div class="actions">
+        <a class="btn" href="https://castelsantangelo.cultura.gov.it/" target="_blank" rel="noopener">🏰 Castel Sant'Angelo</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="roma">
+    <div class="day-header">
+      <div class="day-date">12<small>AGO · mié</small></div>
+      <div class="day-title">Día libre en Roma <span class="day-pill" data-c="roma">Libre</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Galería Borghese (reservar) <button class="info-btn" onclick="openModal('borghese')">ℹ️ Info</button></li>
+        <li>Villa Borghese, Trastevere, gelato tour</li>
+        <li>Cena especial de despedida</li>
+      </ul>
+      <div class="actions">
+        <a class="btn" href="https://galleriaborghese.beniculturali.it/en/" target="_blank" rel="noopener">🎫 Galleria Borghese</a>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="day" data-c="vuelo">
+    <div class="day-header">
+      <div class="day-date">13<small>AGO · jue</small></div>
+      <div class="day-title">Regreso a Santiago <span class="day-pill" data-c="vuelo">en vuelo</span></div>
+      <span class="chev">▾</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="activities">
+        <li>Mañana libre en Roma</li>
+        <li>Traslado al aeropuerto Fiumicino</li>
+        <li>Vuelo a Santiago · salida 19:05</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <section class="summary" style="margin-top:32px;">
+    <h3>📑 Documentos del viaje</h3>
+    <p style="margin:0 0 12px;color:var(--text-soft);font-size:.94em;">
+      Este HTML es complemento del documento de pasajes detallado y la planilla del itinerario.
+    </p>
+    <div class="actions" style="border:none;padding:0;">
+      <a class="btn" href="Pasajes_Italia_2026.docx">📄 Pasajes (DOCX completo)</a>
+      <a class="btn" href="https://docs.google.com/spreadsheets/d/16Z2snD0smobwcvj9QF7fMpLorg98bjLrcD6O8JU6C2Y/edit" target="_blank">📊 Planilla Google Sheets</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- MODAL -->
+<div id="modal" class="modal-backdrop" onclick="if(event.target===this)closeModal()">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-header">
+      <div>
+        <h3 class="modal-title" id="modal-title">—</h3>
+        <div class="modal-subtitle" id="modal-subtitle">—</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()" aria-label="Cerrar">×</button>
+    </div>
+    <div class="modal-body" id="modal-body">—</div>
+    <div class="modal-links" id="modal-links"></div>
+  </div>
+</div>
+
+<footer>
+  Itinerario interactivo · Generado para Javier · Mayo 2026<br>
+  Datos de transporte: Trenitalia (precios verificados) · ÖBB · Travelmar · NLG · EasyJet
+</footer>
+
+<script>
+// ============ DATA DE LUGARES ============
+const PLACES = {
+  trastevere: {
+    title: "Trastevere",
+    subtitle: "Barrio bohemio · Roma",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/d/de/Santa_Maria_in_Trastevere_fountain.jpg"],
+    desc: "Trastevere es uno de los barrios más auténticos y románticos de Roma, al otro lado del río Tíber. Sus calles empedradas, plazas íntimas y casas con buganvillas lo hacen ideal para cenar la primera noche. Por la tarde-noche se llena de vida con romanos y turistas mezclándose en trattorias y wine bars.",
+    highlights: ["Piazza Santa Maria in Trastevere (la basílica más antigua de Roma)", "Vicolos y calles peatonales", "Trattorias tradicionales", "Cruzar por el Ponte Sisto"],
+    tips: ["Cenar a partir de las 20:00, los romanos cenan tarde", "Probar la cacio e pepe o carbonara en cualquier trattoria", "Evitar restaurantes con menús turísticos en italiano + 5 idiomas"],
+    info: {duracion: "2-3 horas", precio: "Gratis", mejor: "Atardecer / noche"},
+    wiki: "https://en.wikipedia.org/wiki/Trastevere"
+  },
+  coliseo: {
+    title: "Coliseo Romano",
+    subtitle: "Anfiteatro Flavio · Roma · ⭐ Imperdible",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/3840px-Colosseo_2020.jpg"],
+    desc: "El Coliseo es el anfiteatro romano más grande jamás construido, símbolo del Imperio Romano. Comenzó a construirse en el año 72 d.C. bajo el emperador Vespasiano y se inauguró 8 años después con 100 días de juegos. Tenía capacidad para 50.000-80.000 espectadores que veían gladiadores, combates con bestias e incluso naumaquias (batallas navales).",
+    highlights: ["Arena central y hipogeo (galerías subterráneas)", "Las gradas (Cavea) con vista panorámica", "El Arco de Constantino al lado", "Una visita guiada con acceso especial a la arena"],
+    tips: ["Reservar entrada con anticipación en ticketing.colosseo.it (Full Experience: subterráneos + arena)", "La entrada combinada incluye Coliseo + Foro Romano + Palatino (válida 24h)", "Ir a primera hora (8:30) o última hora para evitar el calor y las filas", "Llevar agua, gorra y zapatos cómodos"],
+    info: {horario: "8:30 - 19:15 (verano)", precio: "€18 adulto, menores 18 GRATIS UE", duracion: "2-3 horas", mejor: "Apertura o final del día"},
+    wiki: "https://en.wikipedia.org/wiki/Colosseum"
+  },
+  foro_romano: {
+    title: "Foro Romano",
+    subtitle: "Centro político de la Roma antigua",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Foro_Romano_Musei_Capitolini_Roma.jpg/3840px-Foro_Romano_Musei_Capitolini_Roma.jpg"],
+    desc: "El Foro Romano fue durante siglos el corazón político, religioso y comercial de la antigua Roma. En sus ruinas verán los restos de templos, basílicas, arcos triunfales y la Via Sacra por donde desfilaban los emperadores. Es como caminar por el Capitolio de la civilización occidental.",
+    highlights: ["Arco de Tito y Arco de Septimio Severo", "Templo de Vesta (las vírgenes vestales)", "Curia Julia (sede del Senado)", "Casa de las Vestales"],
+    tips: ["La entrada está incluida en el ticket del Coliseo", "Llevar audioguía o app para entender qué es cada ruina", "Subir al Palatino para la mejor vista panorámica", "Combinar visita el mismo día con el Coliseo"],
+    info: {horario: "8:30 - 19:15", precio: "Incluido con ticket Coliseo", duracion: "2 horas", mejor: "Mañana, antes del calor"},
+    wiki: "https://en.wikipedia.org/wiki/Roman_Forum"
+  },
+  palatino: {
+    title: "Monte Palatino",
+    subtitle: "Cuna de Roma · Palacios imperiales",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Palatine_Hill_from_across_the_Circus_Maximus_April_2019.jpg/3840px-Palatine_Hill_from_across_the_Circus_Maximus_April_2019.jpg"],
+    desc: "El Palatino es la cuna mitológica de Roma — aquí, según la leyenda, Rómulo fundó la ciudad. Más tarde fue el barrio residencial de los emperadores: Augusto, Tiberio, Domiciano construyeron aquí sus palacios. De hecho, la palabra 'palacio' viene de Palatino.",
+    highlights: ["Casa de Augusto (frescos originales)", "Domus Flavia y Domus Augustana", "Estadio de Domiciano", "Vista panorámica del Foro y del Circo Máximo"],
+    tips: ["Entrada incluida en el ticket combinado del Coliseo", "Es la mejor zona para una pausa con sombra", "Combina lógicamente con el Foro Romano"],
+    info: {horario: "8:30 - 19:15", precio: "Incluido con Coliseo", duracion: "1-2 horas", mejor: "Mañana"},
+    wiki: "https://en.wikipedia.org/wiki/Palatine_Hill"
+  },
+  vaticano: {
+    title: "Museos Vaticanos",
+    subtitle: "El museo más visitado del mundo",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/6/68/Museums_in_the_Vatican_City.jpg"],
+    desc: "Los Museos Vaticanos albergan una de las colecciones de arte más importantes del mundo, acumulada por los Papas durante siglos. La visita es un recorrido por la historia del arte: desde momias egipcias hasta esculturas griegas, pasando por los frescos de Rafael y culminando en la Capilla Sixtina.",
+    highlights: ["Stanze de Rafael (incluye 'La Escuela de Atenas')", "Galería de los Mapas (techos dorados)", "Capilla Sixtina (siempre al final del recorrido)", "Pinacoteca con obras de Caravaggio y Leonardo"],
+    tips: ["⭐ RESERVAR online con MUCHA anticipación", "Visita guiada Civitatis o tour con 'skip the line' VALE la pena", "Vestimenta apropiada: hombros y rodillas cubiertas", "Plan: museos primero, terminar en Capilla Sixtina"],
+    info: {horario: "Lun-sáb 8:00-18:30", precio: "€20 + €4 reserva online", duracion: "3-4 horas", mejor: "Reservar primer turno (8:00)"},
+    wiki: "https://en.wikipedia.org/wiki/Vatican_Museums"
+  },
+  capilla_sixtina: {
+    title: "Capilla Sixtina",
+    subtitle: "Frescos de Miguel Ángel · ⭐⭐⭐",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/8/82/Sistina-interno.jpg"],
+    desc: "La Capilla Sixtina es el corazón espiritual del Vaticano y donde se eligen los nuevos Papas. Miguel Ángel pintó el techo entre 1508-1512 (con 'La Creación de Adán' como imagen icónica) y, 23 años después, el muro del altar con 'El Juicio Final'. Es una de las obras maestras absolutas del arte occidental.",
+    highlights: ["'La Creación de Adán' (techo)", "'El Juicio Final' (muro del altar)", "Frescos laterales de Botticelli, Ghirlandaio y otros", "Suelo de mármol original del siglo XV"],
+    tips: ["NO se pueden tomar fotos (estrictamente vigilado)", "Hablar en susurro (es un lugar sagrado)", "Llevar los binoculares pequeños si tienen — los detalles del techo se aprecian mejor", "Está incluida en el ticket de Museos Vaticanos"],
+    info: {horario: "Como Museos Vaticanos", precio: "Incluida con Museos", duracion: "30 min - 1 hora", mejor: "Final del recorrido por Museos"},
+    wiki: "https://en.wikipedia.org/wiki/Sistine_Chapel"
+  },
+  navona: {
+    title: "Piazza Navona",
+    subtitle: "Plaza barroca · Bernini",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Piazza_Navona_%28Rome%29_at_night.jpg/3840px-Piazza_Navona_%28Rome%29_at_night.jpg"],
+    desc: "Piazza Navona ocupa el lugar de un antiguo estadio romano del siglo I (Estadio de Domiciano), por eso tiene esa forma alargada. Hoy es uno de los espacios más bellos del Roma barroca, con tres fuentes y dos iglesias. En el centro brilla la Fuente de los Cuatro Ríos de Bernini.",
+    highlights: ["Fontana dei Quattro Fiumi de Bernini (4 ríos: Nilo, Danubio, Ganges, Río de la Plata)", "Iglesia de Sant'Agnese in Agone (Borromini)", "Fontana del Moro y Fontana del Nettuno", "Artistas callejeros y ambiente vivo"],
+    tips: ["Ideal para un aperitivo o gelato al atardecer", "Los restaurantes en la plaza son caros y turísticos — comer una calle adentro", "Está a 2 minutos del Pantheon"],
+    info: {horario: "Abierta 24h", precio: "Gratis", duracion: "30-60 min", mejor: "Tarde / noche con luces"},
+    wiki: "https://en.wikipedia.org/wiki/Piazza_Navona"
+  },
+  pantheon: {
+    title: "Pantheon",
+    subtitle: "Templo romano del siglo II · ⭐",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Pantheon_%28Rome%29_-_Right_side_and_front.jpg/3840px-Pantheon_%28Rome%29_-_Right_side_and_front.jpg"],
+    desc: "El Pantheon es el edificio romano mejor conservado del mundo — lleva 2000 años en pie casi intacto. Construido por Adriano en el 126 d.C., su cúpula de hormigón sigue siendo la más grande sin armadura jamás construida (43.3m de diámetro). En el centro tiene un óculo abierto al cielo. Hoy es iglesia y mausoleo (Rafael está enterrado aquí).",
+    highlights: ["La cúpula y el óculo en el centro (¡siempre abierto al cielo!)", "Tumba de Rafael (el pintor)", "Suelo de mármol original (con drenaje para la lluvia que cae por el óculo)", "Fachada con columnas monolíticas de granito egipcio"],
+    tips: ["Entrada actualmente €5 (era gratis hasta 2023)", "Si llueve, el agua cae al interior — es parte de la experiencia", "Combinar con Piazza Navona (a 200m)", "Café Tazza d'Oro al frente — el mejor espresso de Roma"],
+    info: {horario: "Lun-sáb 9-19, dom 9-18", precio: "€5", duracion: "30-45 min", mejor: "Mañana"},
+    wiki: "https://en.wikipedia.org/wiki/Pantheon,_Rome"
+  },
+  trevi: {
+    title: "Fontana di Trevi",
+    subtitle: "La fuente más famosa del mundo",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Trevi_Fountain_-_Roma.jpg/3840px-Trevi_Fountain_-_Roma.jpg"],
+    desc: "La Fontana di Trevi es la fuente barroca más famosa del mundo. Terminada en 1762, representa al dios Océano sobre una concha tirada por dos caballos. La tradición dice: lanzar UNA moneda con la mano derecha sobre el hombro izquierdo garantiza regresar a Roma. Tirar dos: encontrarás el amor. Tres: te casarás.",
+    highlights: ["Esculturas de Océano, Tritones y caballos", "Espejo de agua iluminado de noche", "Tradición de la moneda (recaudan ~€3.000/día para caridad)", "Aparición icónica en 'La Dolce Vita' de Fellini"],
+    tips: ["Visitar de noche (mucho menos gente que de día y bellamente iluminada)", "NO bañarse ni mojarse — multa de €450", "Probar el helado en Il Gelato di San Crispino cerca", "Estar atento al estado de los bolsos (mucho turista = mucho carterista)"],
+    info: {horario: "Abierta 24h", precio: "Gratis", duracion: "20-30 min", mejor: "Noche o muy temprano"},
+    wiki: "https://en.wikipedia.org/wiki/Trevi_Fountain"
+  },
+  castel: {
+    title: "Castel Sant'Angelo",
+    subtitle: "Mausoleo de Adriano · Fortaleza papal",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Castel_Sant%27_Angelo_Between_Leaves.jpg/3840px-Castel_Sant%27_Angelo_Between_Leaves.jpg"],
+    desc: "Originalmente construido como mausoleo del emperador Adriano (139 d.C.), Castel Sant'Angelo ha sido fortaleza, residencia papal y prisión. Conectado al Vaticano por un pasadizo secreto (el Passetto), salvó la vida de varios Papas durante asedios. Hoy es un museo con vistas espectaculares de Roma.",
+    highlights: ["Terraza superior con vista 360° de Roma y el Vaticano", "Apartamentos papales decorados con frescos renacentistas", "Estatua del Arcángel Miguel sobre el techo", "Ponte Sant'Angelo con esculturas de Bernini"],
+    tips: ["Subir al atardecer para vistas espectaculares", "Ideal para ver el Vaticano desde otro ángulo", "Combinar con paseo por el barrio Prati", "Aparece en la ópera 'Tosca' de Puccini"],
+    info: {horario: "9:00 - 19:30", precio: "€14 adulto", duracion: "1.5-2 horas", mejor: "Atardecer"},
+    wiki: "https://en.wikipedia.org/wiki/Castel_Sant%27Angelo"
+  },
+  borghese: {
+    title: "Galleria Borghese",
+    subtitle: "Esculturas de Bernini · Pinturas de Caravaggio",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/b/bf/Galerie_Borgh%C3%A8se_-_Rome_%28IT62%29_-_2021-08-30_-_3.jpg"],
+    desc: "La Galleria Borghese es uno de los museos más espectaculares de Roma, en una villa del cardenal Scipione Borghese (siglo XVII). Pequeña pero intensa: contiene las mejores esculturas de Bernini (Apolo y Dafne, El Rapto de Proserpina, David) y obras maestras de Caravaggio, Tiziano, Raffaello.",
+    highlights: ["'Apolo y Dafne' de Bernini (mármol que parece carne)", "'El Rapto de Proserpina' de Bernini", "Obras de Caravaggio (David con cabeza de Goliat)", "Villa Borghese (parque alrededor)"],
+    tips: ["⭐ RESERVAR OBLIGATORIO con días/semanas de anticipación", "Visita por turnos de 2 horas exactamente", "No se pueden llevar mochilas ni bolsos grandes", "Combinar con paseo por Villa Borghese (parque)"],
+    info: {horario: "Mar-dom 9:00-19:00", precio: "€13 adulto + €2 reserva", duracion: "2 horas exactas", mejor: "Reservar primer turno"},
+    wiki: "https://en.wikipedia.org/wiki/Galleria_Borghese"
+  },
+  salerno: {
+    title: "Salerno",
+    subtitle: "Tu base en la Costa Amalfitana",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Panorama_of_salerno_from_arechi.jpg/3840px-Panorama_of_salerno_from_arechi.jpg"],
+    desc: "Salerno es una ciudad costera al sur de Nápoles, mucho más auténtica y económica que los pueblos turísticos de la Costa Amalfitana. Tiene un centro histórico medieval encantador, un paseo marítimo (Lungomare) precioso para caminar al atardecer, y excelentes conexiones de ferry y tren — perfecta como base para explorar la zona.",
+    highlights: ["Lungomare Trieste (paseo marítimo de 2km)", "Centro histórico con la Catedral normanda", "Castillo de Arechi (vistas panorámicas)", "Via dei Mercanti (callecita comercial medieval)"],
+    tips: ["Mucho más barata que Positano, Amalfi o Sorrento", "El puerto está a 5-10 minutos del centro a pie", "Cena en pizzerías locales muy auténticas", "El gelato en Bar Nettuno es famoso"],
+    info: {poblacion: "130.000 hab.", desde_roma: "2h en tren", desde_amalfi: "35 min en ferry", duracion: "Base 5 noches"},
+    wiki: "https://en.wikipedia.org/wiki/Salerno"
+  },
+  positano: {
+    title: "Positano",
+    subtitle: "Pueblo vertical de la Costa Amalfitana",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Positano_Sunset.JPG/3840px-Positano_Sunset.JPG"],
+    desc: "Positano es uno de los pueblos más bellos del mundo: casas pastel apiladas verticalmente sobre el acantilado, que descienden hasta una playa de piedras. Inmortalizado por John Steinbeck que escribió 'Positano te muerde profundo. Es un lugar de ensueño que no es del todo real cuando estás ahí'.",
+    highlights: ["Spiaggia Grande (la playa principal)", "Chiesa di Santa Maria Assunta (cúpula amarilla)", "Via dei Mulini con tiendas de la moda Positano", "Sentiero degli Dei (Camino de los Dioses, sendero panorámico)"],
+    tips: ["⛴️ Llegar en ferry desde Salerno es lo más práctico", "Llevar zapatos cómodos: todo es escalera arriba/abajo", "Comer en restaurantes alejados del puerto para mejores precios", "Probar la pizza al limón o granita di limone"],
+    info: {desde_salerno: "1h 15min en ferry · €15-22", playa: "Spiaggia Grande (piedras)", mejor: "Mañana o atardecer", duracion: "Día completo"},
+    wiki: "https://en.wikipedia.org/wiki/Positano"
+  },
+  amalfi: {
+    title: "Amalfi",
+    subtitle: "Antigua República Marinera",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/0/08/Amalfi_sea_view_Italy.JPG"],
+    desc: "Amalfi fue una de las cuatro grandes Repúblicas Marítimas italianas (junto con Génova, Pisa y Venecia). Hoy es un pueblo precioso con una catedral espectacular y callecitas blancas. Su limoncello es famoso porque los limones de la zona (Sfusato Amalfitano) son enormes y dulces.",
+    highlights: ["Duomo di Sant'Andrea (catedral con escaleras dramáticas)", "Chiostro del Paradiso (claustro árabe-normando)", "Museo della Carta (la tradición papelera)", "Playa de Amalfi"],
+    tips: ["Punto de partida ideal para subir a Ravello en bus SITA", "Probar limoncello en Antichi Sapori d'Amalfi", "Comprar papel artesanal Amatruda (hecho a mano desde el siglo XIII)", "Las escaleras de la catedral son imperdibles para fotos"],
+    info: {desde_salerno: "35 min en ferry · €10-15", catedral: "€3 adulto", duracion: "Medio día", mejor: "Mañana"},
+    wiki: "https://en.wikipedia.org/wiki/Amalfi"
+  },
+  ravello: {
+    title: "Ravello",
+    subtitle: "Pueblo a 365m sobre el mar",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/b/b1/Ravello-coastline.jpg"],
+    desc: "Ravello está suspendido en lo alto de un acantilado con las vistas más espectaculares de toda la Costa Amalfitana. Es un pueblo elegante y tranquilo donde Wagner se inspiró para 'Parsifal' y Gore Vidal vivió 30 años. En verano celebra el Ravello Festival, uno de los festivales de música clásica más prestigiosos de Italia.",
+    highlights: ["Villa Rufolo (jardines y vistas) — VER MODAL aparte", "Villa Cimbrone (Terraza del Infinito)", "Plaza Duomo (centro del pueblo)", "Duomo de Ravello (siglo XI)"],
+    tips: ["Llegar en bus SITA desde Amalfi (25 min, €1,80)", "Almorzar con vistas en una terraza", "No hay coches en el centro — todo a pie", "Aire fresco a 365m de altura — alivio del calor"],
+    info: {desde_amalfi: "25 min en bus · €1,80", altura: "365m sobre el mar", duracion: "Medio día", mejor: "Almuerzo + atardecer"},
+    wiki: "https://en.wikipedia.org/wiki/Ravello"
+  },
+  villa_rufolo: {
+    title: "Villa Rufolo",
+    subtitle: "Jardines más fotogénicos de Italia",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/2/21/Ravello_Villa_Rufolo.JPG"],
+    desc: "Villa Rufolo es una villa medieval con jardines colgantes mirando al mar Tirreno desde Ravello. Wagner se inspiró aquí para los jardines mágicos de Klingsor en 'Parsifal'. En verano sus jardines y terraza son escenario del Ravello Festival de música clásica al aire libre, con la orquesta tocando frente al mar.",
+    highlights: ["La icónica terraza con sombrillas pinos italianos y mar", "Torre Maggiore", "Jardines en terrazas con flores todo el año", "Estatuas y restos arqueológicos romanos"],
+    tips: ["⭐ Foto obligatoria desde la balconada", "Las flores cambian con la temporada, en julio están en plena floración", "Posible asistir a un concierto del festival si las fechas coinciden", "Combinar con almuerzo en Ravello"],
+    info: {horario: "9:00-21:00 verano", precio: "€8 adulto", duracion: "1-1.5 horas", festival: "Julio-Sept"},
+    wiki: "https://en.wikipedia.org/wiki/Villa_Rufolo"
+  },
+  capri: {
+    title: "Capri",
+    subtitle: "Isla del jet-set en el golfo de Nápoles",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/7/7d/Capri_in_Cartolina_-_Vista_da_Termini_%28Massa_Lubrense%29.jpg"],
+    desc: "Capri es una isla glamorosa frente a Sorrento, paraíso de la jet-set desde los años 50 (Jackie Kennedy, Sofia Loren, Onassis). Tiene dos pueblos: Capri (más glamoroso, con la famosa Piazzetta) y Anacapri (más tranquilo, en lo alto). La isla está rodeada de acantilados blancos espectaculares y aguas turquesas.",
+    highlights: ["La Piazzetta (corazón social de Capri)", "Gruta Azul (ver modal aparte)", "Faraglioni (las tres rocas icónicas)", "Jardines de Augusto (vista a los Faraglioni)", "Anacapri y Monte Solaro (silla)"],
+    tips: ["⛴️ Solo 1 ferry directo Salerno-Capri al día (NLG, ~8:30 AM) — RESERVAR", "Llegar lo más temprano posible para evitar las multitudes", "El funicular de Marina Grande a Capri pueblo: €2", "La isla es pequeña pero todo cuesta más que en tierra firme"],
+    info: {desde_salerno: "1h 30min ferry · €28-40/p", duracion: "Día completo", mejor: "Llegada temprana", reservar: "Sí, imprescindible"},
+    wiki: "https://en.wikipedia.org/wiki/Capri"
+  },
+  gruta_azul: {
+    title: "Gruta Azul (Grotta Azzurra)",
+    subtitle: "Cueva marina iluminada en azul",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/5/5d/Grotta_azzurra.jpg"],
+    desc: "La Grotta Azzurra es una caverna marina en la costa norte de Capri donde la luz del sol entra por una abertura submarina y se refleja iluminando todo el interior en un azul intenso y mágico. Los emperadores Tiberio y Augusto la usaban como piscina personal. Hoy se entra en pequeños botes a remo (4 personas máximo) con un barquero que canta canciones napolitanas.",
+    highlights: ["El azul eléctrico del agua iluminada desde abajo", "Echar la mano al agua y verla brillar plateada", "El sonido de las olas en la cueva", "La habilidad del barquero al entrar (la entrada mide solo 1m)"],
+    tips: ["Reservar lancha en Marina Grande al llegar (€18/p + propina al barquero)", "Si hay mar movido o marea alta, no se puede entrar (cierra)", "⚠️ Mejor temprano: 9:00-11:00 es ideal", "Llevar billete pequeño para propina (€2-5/p al barquero)"],
+    info: {precio: "€18/p + propina €2-5", duracion: "5 min dentro · 30 min total", clima: "Solo con mar tranquilo", mejor: "Mañana temprano"},
+    wiki: "https://en.wikipedia.org/wiki/Blue_Grotto_(Capri)"
+  },
+  anacapri: {
+    title: "Anacapri",
+    subtitle: "Pueblo alto de Capri · Monte Solaro",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Anacapri-villa_san_michele.jpg/3840px-Anacapri-villa_san_michele.jpg"],
+    desc: "Anacapri es el pueblo 'arriba' de Capri, más tranquilo y auténtico que el pueblo de Capri. Desde aquí parte la silla del Monte Solaro (589m), el punto más alto de la isla, con vistas 360° espectaculares: Vesubio, golfo de Nápoles, Faraglioni, Costa Amalfitana.",
+    highlights: ["Silla del Monte Solaro (12 min, €13 ida)", "Villa San Michele (casa del escritor Axel Munthe)", "Iglesia de San Michele (suelo de cerámica decorado)", "Vistas desde Belvedere di Migliera"],
+    tips: ["Bus desde Capri pueblo a Anacapri: 15 min, €2", "La silla es abierta (¡emocionante!), es seguro pero hay que tener cuidado con cosas que se caigan", "La vista del Monte Solaro es la mejor de la isla", "Si tienen tiempo, almorzar en Anacapri es más económico"],
+    info: {altura_solaro: "589m", precio_solaro: "€13 ida/€16 ida vuelta", duracion: "Medio día"},
+    wiki: "https://en.wikipedia.org/wiki/Anacapri"
+  },
+  pompeya: {
+    title: "Pompeya",
+    subtitle: "Ciudad romana congelada en el tiempo · ⭐⭐⭐",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/d/d4/Theathres_of_Pompeii.jpg"],
+    desc: "Pompeya es la ciudad más extraordinaria que verán. El 24 de agosto del año 79 d.C., el Vesubio entró en erupción y enterró Pompeya bajo metros de ceniza, congelándola en el tiempo. Casas, frescos, panaderías, baños, prostíbulos, e incluso los cuerpos (en moldes de yeso) se conservan tal como estaban hace 2000 años. Caminar por sus calles es como caminar por una ciudad romana en funcionamiento.",
+    highlights: ["Foro y templos centrales", "Villa de los Misterios (frescos en rojo pompeyano)", "Casa del Fauno y Casa de los Vetii", "Anfiteatro (el más antiguo de Roma conocido)", "Moldes de yeso de las víctimas", "Lupanare (prostíbulo) con grafitis romanos"],
+    tips: ["⭐ Llegar temprano (8:30 apertura) — en julio el sol es brutal", "Llevar 2 LITROS de agua, sombrero y zapatos cómodos", "Audio guía o tour es CRÍTICO — sin contexto no se entiende nada", "Entrar por Porta Marina (más cerca de la estación Pompei Scavi)", "Plan: 3-4 horas mínimo, todo el día si pueden", "El museo MANN en Nápoles tiene las mejores piezas (mosaicos, frescos)"],
+    info: {desde_salerno: "40 min en tren · €2,90", horario: "9:00-19:00 (verano)", precio: "€18 adulto", duracion: "3-4 horas"},
+    wiki: "https://en.wikipedia.org/wiki/Pompeii"
+  },
+  napoles: {
+    title: "Nápoles",
+    subtitle: "La ciudad caótica que inventó la pizza",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Napoli_-_Maschio_Angioino_-_202209302342_3.jpg/3840px-Napoli_-_Maschio_Angioino_-_202209302342_3.jpg"],
+    desc: "Nápoles es caótica, hermosa, intensa. Patrimonio UNESCO por su centro histórico, es donde nació la pizza (1889, la Margherita). Tiene una historia de 2800 años, museos increíbles (el MANN con los tesoros de Pompeya) y la vista del Vesubio en el golfo. Es Italia en estado puro, sin filtros.",
+    highlights: ["Spaccanapoli (la calle recta que parte el centro)", "Pizza napolitana: Da Michele (la del 'Comer, rezar, amar'), Sorbillo, Gino Sorbillo", "MANN - Museo Arqueológico Nacional", "Castel dell'Ovo en el malecón", "Galleria Umberto I"],
+    tips: ["⚠️ Cuidado con bolsos y celulares en zonas concurridas", "La pizza margherita o marinara son las clásicas (no piedan extras raros)", "Probar el sfogliatella (postre típico)", "Para visitar bien: 1 día completo mínimo"],
+    info: {desde_salerno: "40 min tren rápido · €10-15", desde_pompeya: "30 min tren", duracion: "Medio día/día completo"},
+    wiki: "https://en.wikipedia.org/wiki/Naples"
+  },
+  duomo_firenze: {
+    title: "Duomo de Florencia",
+    subtitle: "Catedral de Santa María del Fiore",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Cattedrale_di_Santa_Maria_del_Fiore_%E2%80%93_Il_Duomo_di_Firenze.jpg/3840px-Cattedrale_di_Santa_Maria_del_Fiore_%E2%80%93_Il_Duomo_di_Firenze.jpg"],
+    desc: "La cúpula de Brunelleschi (1436) es una proeza arquitectónica que dio inicio al Renacimiento. Es la cúpula de mampostería más grande del mundo. La catedral, su campanario de Giotto y el Baptisterio forman un conjunto único, en mármol blanco, verde y rosa. Subir a la cúpula es una experiencia única — 463 escalones por los planos secretos del Brunelleschi.",
+    highlights: ["Cúpula de Brunelleschi (subir es imperdible)", "Campanile di Giotto (414 escalones)", "Fachada policromada en mármol", "Frescos del 'Juicio Final' en la cúpula interior"],
+    tips: ["⭐ RESERVAR cúpula y campanario online — cupos limitados", "El Brunelleschi Pass (€30) incluye TODO: cúpula, campanario, baptisterio, museo, cripta", "Subir a la cúpula: cuidado con claustrofobia (pasajes estrechos)", "Mejor vista del exterior: desde Piazza della Repubblica"],
+    info: {horario: "10:15-16:45 (catedral gratis)", precio: "€30 Brunelleschi Pass", duracion: "2-3 horas todo"},
+    wiki: "https://en.wikipedia.org/wiki/Florence_Cathedral"
+  },
+  baptisterio_firenze: {
+    title: "Baptisterio de San Juan",
+    subtitle: "Las 'Puertas del Paraíso' de Ghiberti",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Baptistery%2C_Florence.jpg/3840px-Baptistery%2C_Florence.jpg"],
+    desc: "El Baptisterio es uno de los edificios más antiguos de Florencia (s. XI). Es famoso por sus tres puertas de bronce, especialmente las orientales 'Las Puertas del Paraíso' de Lorenzo Ghiberti (1452), llamadas así por Miguel Ángel. El interior tiene mosaicos bizantinos dorados en la cúpula.",
+    highlights: ["Puertas del Paraíso (las que están afuera son réplicas, las originales en el museo)", "Cúpula con mosaicos bizantinos dorados", "Suelo de mármol patrones geométricos", "Tumba del Antipapa Juan XXIII (esculpida por Donatello)"],
+    tips: ["Pase combinado con el Duomo (Brunelleschi Pass)", "Las puertas originales están en el Museo dell'Opera del Duomo", "Pasar adentro vale la pena por la cúpula dorada"],
+    info: {horario: "8:30-19:30", precio: "Incluido Brunelleschi Pass", duracion: "30 min"},
+    wiki: "https://en.wikipedia.org/wiki/Florence_Baptistery"
+  },
+  uffizi: {
+    title: "Galleria degli Uffizi",
+    subtitle: "Templo del Renacimiento · ⭐⭐⭐",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/d/d7/Florence%2C_Italy_-_panoramio_%28125%29.jpg"],
+    desc: "Los Uffizi son una de las pinacotecas más importantes del mundo. Originalmente las oficinas de los Medici (de ahí 'uffizi' = oficinas), albergan la mejor colección de arte renacentista del mundo: Botticelli, Leonardo, Miguel Ángel, Caravaggio, Rafael. 'El Nacimiento de Venus' y 'La Primavera' de Botticelli están aquí.",
+    highlights: ["'El Nacimiento de Venus' y 'La Primavera' de Botticelli", "'La Anunciación' de Leonardo da Vinci", "'Tondo Doni' de Miguel Ángel", "'Baco' y 'Medusa' de Caravaggio", "Corridoio Vasariano (al Palazzo Pitti)"],
+    tips: ["⭐ RESERVAR ONLINE — obligatorio en verano", "Abrir a las 8:15 — primer turno es el mejor", "Plan: 3 horas mínimo, hay que priorizar (es enorme)", "El café de la terraza tiene vistas del Duomo", "Salida natural: hacia Ponte Vecchio"],
+    info: {horario: "Mar-dom 8:15-18:30", precio: "€25 alta temp + €4 reserva", duracion: "3-4 horas"},
+    wiki: "https://en.wikipedia.org/wiki/Uffizi"
+  },
+  academia_firenze: {
+    title: "Galleria dell'Accademia",
+    subtitle: "Casa del David de Miguel Ángel",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/d/d5/David_at_the_Galleria_dell%27Accademia_%2861351%29.jpg"],
+    desc: "La Accademia es famosa por una sola cosa: el David original de Miguel Ángel (1504). Mide 5.17m, esculpido en un solo bloque de mármol de Carrara que nadie podía trabajar. Es la escultura más perfecta jamás creada. Verlo en persona, después de tantas reproducciones, deja sin palabras. La galería también tiene los 'Prisioneros' (esculturas inacabadas) y obras de pintores florentinos.",
+    highlights: ["El David (5.17m) — preparen el cuello", "Los 'Prigioni' inacabados de Miguel Ángel", "San Mateo (también inacabado)", "Sala de las pinturas florentinas del siglo XV"],
+    tips: ["⭐ RESERVAR — sin reserva = 2-3 horas de fila", "La sala del David es circular — caminar alrededor", "La Tribuna donde está el David tiene techo claraboya con luz natural perfecta", "Plan: 1-1.5h es suficiente"],
+    info: {horario: "Mar-dom 8:15-18:30", precio: "€16 + €4 reserva", duracion: "1-1.5 horas"},
+    wiki: "https://en.wikipedia.org/wiki/Galleria_dell%27Accademia"
+  },
+  piazzale_michelangelo: {
+    title: "Piazzale Michelangelo",
+    subtitle: "La vista más icónica de Florencia",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/5/5d/Firenze_-_modified.jpg"],
+    desc: "Piazzale Michelangelo es la terraza panorámica de Florencia, con la mejor vista 180° de toda la ciudad: Duomo, Palazzo Vecchio, Ponte Vecchio, los Apeninos al fondo. Tiene una réplica en bronce del David. Es el lugar OBLIGATORIO para el atardecer.",
+    highlights: ["Vista panorámica completa de Florencia", "Réplica del David", "Iglesia de San Miniato al Monte (subir aún más)", "Aperitivo con vista al atardecer"],
+    tips: ["⭐ Ir al ATARDECER (luz dorada sobre el Duomo)", "Llegar 30 min antes para encontrar buen lugar", "Bus 12 o 13 desde el centro, o caminata 30 min subiendo", "Llevar agua, hay un quiosco pero caro", "San Miniato al Monte está justo arriba"],
+    info: {acceso: "Bus 12/13 o caminata 30 min", precio: "Gratis", duracion: "1 hora", mejor: "30 min antes del atardecer"},
+    wiki: "https://en.wikipedia.org/wiki/Piazzale_Michelangelo"
+  },
+  ponte_vecchio: {
+    title: "Ponte Vecchio",
+    subtitle: "Puente medieval con joyerías",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Ponte_Vecchio_from_Ponte_alle_Grazie.jpg/3840px-Ponte_Vecchio_from_Ponte_alle_Grazie.jpg"],
+    desc: "El Ponte Vecchio es el puente más antiguo de Florencia (1345) y el único que sobrevivió a las bombas de la WWII (Hitler dio orden de no destruirlo). Originalmente tenía carniceros y curtidores, pero los Medici los echaron por mal olor y solo dejaron orfebres y joyeros — tradición que continúa hasta hoy.",
+    highlights: ["Joyerías históricas (algunas con cientos de años)", "Vista del Arno desde el puente", "Busto de Cellini (orfebre famoso)", "Corredor Vasariano (paso secreto Medici en lo alto)"],
+    tips: ["⭐ Ver al atardecer desde Ponte Santa Trinita (mejor foto)", "Mirar las joyas pero no comprar sin comparar precios", "Cruzar al Oltrarno para barrios menos turísticos", "Por la noche está iluminado, hermoso"],
+    info: {horario: "Abierto 24h", precio: "Gratis", duracion: "20-30 min", mejor: "Atardecer"},
+    wiki: "https://en.wikipedia.org/wiki/Ponte_Vecchio"
+  },
+  palazzo_pitti: {
+    title: "Palazzo Pitti",
+    subtitle: "Residencia de los Medici en el Oltrarno",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/6/6a/Palazzo_Pitti_nel_tardo_pomeriggio.jpg"],
+    desc: "El Palazzo Pitti fue residencia de los Medici desde 1550 (cuando se trasladaron del Palazzo Vecchio). Inmenso, con varias galerías de arte y los Jardines de Bóboli detrás. Tiene la Galleria Palatina (segunda colección de pinturas de Florencia después de los Uffizi), el Museo de los Apartamentos Reales y el Museo del Traje.",
+    highlights: ["Galleria Palatina (obras de Rafael, Tiziano, Caravaggio)", "Apartamentos Reales", "Museo del Traje (vestidos de los Medici)", "Conexión a los Jardines de Bóboli"],
+    tips: ["Pase combinado con Bóboli (€16)", "Es enorme — escoger 1-2 secciones, no todo", "Menos masificado que los Uffizi", "Después de Pitti es lógico ir a Bóboli"],
+    info: {horario: "Mar-dom 8:15-18:30", precio: "€16 combinado con Bóboli", duracion: "2 horas"},
+    wiki: "https://en.wikipedia.org/wiki/Palazzo_Pitti"
+  },
+  boboli: {
+    title: "Jardines de Bóboli",
+    subtitle: "Jardines renacentistas detrás del Palazzo Pitti",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Jard%C3%ADn_de_B%C3%B3boli%2C_Florencia%2C_Italia%2C_2022-09-19%2C_DD_26.jpg/3840px-Jard%C3%ADn_de_B%C3%B3boli%2C_Florencia%2C_Italia%2C_2022-09-19%2C_DD_26.jpg"],
+    desc: "Los Giardino di Bóboli son los jardines renacentistas más bellos de Italia, modelo para todos los jardines reales de Europa (incluyendo Versalles). Detrás del Palazzo Pitti, suben por la colina con esculturas, fuentes, una gruta de Buontalenti, anfiteatro al aire libre y vistas de Florencia.",
+    highlights: ["Grotta del Buontalenti (cueva con esculturas)", "Anfiteatro al aire libre", "Isolotto (estanque con fuente del Océano)", "Vistas de Florencia desde lo alto", "Kaffeehaus (cafetería rococó)"],
+    tips: ["Llevar agua y protector solar — sin mucha sombra", "Combinar con Palazzo Pitti (ticket combinado)", "Plan: 1.5-2 horas tranquilas", "En verano es el escape verde de la ciudad"],
+    info: {horario: "8:15-19:30 verano", precio: "€16 combinado Pitti", duracion: "1.5-2 horas"},
+    wiki: "https://en.wikipedia.org/wiki/Boboli_Gardens"
+  },
+  siena: {
+    title: "Siena",
+    subtitle: "La rival medieval de Florencia",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Siena_Cattedrale_nuova_Vista_su_la_Piazza_del_Campo_2.jpg/3840px-Siena_Cattedrale_nuova_Vista_su_la_Piazza_del_Campo_2.jpg"],
+    desc: "Siena es una ciudad medieval congelada en el tiempo, rival histórica de Florencia. Su Piazza del Campo (en forma de concha) es una de las más bellas del mundo, y dos veces al año aloja el Palio di Siena: una carrera medieval de caballos representando los barrios. Su Duomo es uno de los más hermosos de Italia.",
+    highlights: ["Piazza del Campo (forma de concha)", "Torre del Mangia (88m, vistas)", "Duomo di Siena (mármol blanco y negro)", "Palazzo Pubblico (frescos de Lorenzetti)", "Pinacoteca Nazionale"],
+    tips: ["⭐ Bus desde Florencia es más rápido que tren (1h 15min vs 1h 30min)", "El Palio se corre el 2 julio y 16 agosto", "Probar el Pici (pasta) y el Panforte (dulce típico)", "Calles medievales — zapatos cómodos"],
+    info: {desde_florencia: "1h 15min bus · €9-12", duracion: "Día completo o medio día", mejor: "Día completo si combinan con San Gimignano"},
+    wiki: "https://en.wikipedia.org/wiki/Siena"
+  },
+  san_gimignano: {
+    title: "San Gimignano",
+    subtitle: "El 'Manhattan medieval' con 13 torres",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/1_Aerial_pano_san_gimignano_%282%29a.jpg/3840px-1_Aerial_pano_san_gimignano_%282%29a.jpg"],
+    desc: "San Gimignano es un pueblo medieval suspendido en el tiempo, con 13 torres familiares de 50 metros que crean una silueta única. En la Edad Media tenía 72 torres (cada familia rica construía una más alta que la del vecino). Hoy es Patrimonio UNESCO, mantenido como en el siglo XIII.",
+    highlights: ["Torre Grossa (54m, la más alta, se puede subir)", "Piazza della Cisterna (corazón del pueblo)", "Duomo (Collegiata) con frescos espectaculares", "Gelateria Dondoli (campeón del mundo de helados varias veces)", "Vino Vernaccia di San Gimignano (DOCG)"],
+    tips: ["⭐ Probar el helado de Dondoli — vale la fila", "Llegar temprano para evitar masas (las excursiones llegan 10:30-11:00)", "Probar el Vernaccia en una enoteca local", "Subir a una torre para la vista panorámica de las colinas toscanas"],
+    info: {desde_florencia: "1h 30min bus", duracion: "Medio día", mejor: "Llegar antes de 10:30"},
+    wiki: "https://en.wikipedia.org/wiki/San_Gimignano"
+  },
+  gran_canal: {
+    title: "Gran Canal de Venecia",
+    subtitle: "La avenida principal de Venecia",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/View_of_the_Grand_Canal_from_Rialto_to_Ca%27Foscari.jpg/3840px-View_of_the_Grand_Canal_from_Rialto_to_Ca%27Foscari.jpg"],
+    desc: "El Gran Canal serpentea por el corazón de Venecia en forma de S invertida, 3.8 km de largo. Bordeado por unos 170 palacios de los siglos XII al XVIII, fue durante siglos la calle principal de la república más rica del Mediterráneo. Hoy se recorre en vaporetto (transporte público acuático) o en góndola.",
+    highlights: ["Puente de Rialto (el más famoso)", "Puente de la Academia (vistas)", "Ca' d'Oro (palacio gótico veneciano)", "Punta della Dogana (en la confluencia con el canal de la Giudecca)"],
+    tips: ["⭐ Vaporetto línea 1 = ruta turística completa por el Gran Canal", "Ir sentado al frente o al final del vaporetto para mejores vistas", "Atardecer es mágico — pero también muy concurrido", "Las góndolas son carísimas (€80-100 por 30 min) pero si vienen a Venecia, una vez al menos"],
+    info: {vaporetto_linea_1: "€9.50/persona ida (75 min)", duracion: "Día variable", góndola: "€80-100 (30 min)"},
+    wiki: "https://en.wikipedia.org/wiki/Grand_Canal_(Venice)"
+  },
+  san_marcos: {
+    title: "Plaza San Marcos",
+    subtitle: "'El salón más bello de Europa' (Napoleón)",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Piazza_San_Marco_%28Venice%29_at_night-msu-2021-6449-.jpg/3840px-Piazza_San_Marco_%28Venice%29_at_night-msu-2021-6449-.jpg"],
+    desc: "Piazza San Marco es la única 'piazza' de Venecia (las otras son 'campi'). Napoleón la llamó 'el salón más bello de Europa'. Rodeada por la Basílica, el Campanile, el Palacio Ducal y las Procuratie, es el corazón ceremonial de la ciudad y a menudo se inunda (acqua alta) — entonces se pone pasarelas elevadas.",
+    highlights: ["Basílica de San Marcos (modal aparte)", "Campanile (98m, subir en ascensor para mejores vistas)", "Palacio Ducal (modal aparte)", "Torre dell'Orologio (reloj astronómico)", "Café Florian (el más antiguo de Italia, 1720)"],
+    tips: ["⭐ Llegar a las 7-8 AM cuando está vacía", "Los cafés en la plaza son carísimos (€10 un espresso) pero la experiencia incluye orquesta", "Subir al Campanile en ascensor (4 min) — vista de toda Venecia", "Las palomas son leyenda pero ya no se permite alimentarlas"],
+    info: {horario: "Abierta 24h", precio: "Gratis", campanile: "€10 para subir", duracion: "1-2 horas"},
+    wiki: "https://en.wikipedia.org/wiki/Piazza_San_Marco"
+  },
+  basilica_marcos: {
+    title: "Basílica de San Marcos",
+    subtitle: "La basílica de oro · Estilo bizantino",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Venezia_Basilica_di_San_Marco_Fassade_2.jpg/3840px-Venezia_Basilica_di_San_Marco_Fassade_2.jpg"],
+    desc: "La Basílica de San Marcos es uno de los edificios más extraordinarios del mundo. Estilo bizantino con 5 cúpulas, 8000m² de mosaicos dorados, mármoles policromados, y la Pala d'Oro (un altar de oro y joyas). Alberga las reliquias de San Marcos, robadas de Alejandría por mercaderes venecianos en el 828.",
+    highlights: ["Mosaicos dorados de techo y paredes (suben hasta 8000m²)", "Pala d'Oro (altar de oro con 2000 piedras preciosas)", "Quadriga de bronce (4 caballos sobre la fachada — réplicas, originales adentro)", "Tesoro de San Marcos (reliquias bizantinas)"],
+    tips: ["⭐ RESERVAR online (en alta temporada se llena)", "Vestimenta apropiada: hombros y rodillas cubiertas", "No mochilas grandes (hay guardarropa cercano)", "Subir al museo en lo alto para ver mosaicos de cerca y la Quadriga original"],
+    info: {horario: "Lun-sáb 9:30-17:00, dom 14-17", precio: "€3 + extras", duracion: "1 hora"},
+    wiki: "https://en.wikipedia.org/wiki/St_Mark%27s_Basilica"
+  },
+  palacio_ducal: {
+    title: "Palacio Ducal",
+    subtitle: "Sede del Doge · Puente de los Suspiros",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/%28Venice%29_Doge%27s_Palace_and_campanile_of_St._Mark%27s_Basilica_facing_the_sea.jpg/3840px-%28Venice%29_Doge%27s_Palace_and_campanile_of_St._Mark%27s_Basilica_facing_the_sea.jpg"],
+    desc: "El Palazzo Ducale fue residencia del Doge (jefe de la república) y sede del gobierno veneciano durante 700 años. Estilo gótico veneciano único, mezcla arquitectura cristiana e islámica. La visita incluye los Apartamentos del Doge, las Cámaras del Consejo (con frescos de Tintoretto y Veronese), las prisiones (donde Casanova estuvo encerrado) y el Puente de los Suspiros que conecta el palacio con las prisiones.",
+    highlights: ["Sala del Maggior Consiglio (sala enorme con 'Paraíso' de Tintoretto)", "Puente de los Suspiros (paso al calabozo)", "Calabozos donde Casanova fugó", "Itinerarios secretos (tour especial, prácticas inquisitoriales)"],
+    tips: ["⭐ Hacer el 'Secret Itineraries Tour' si es posible (acceso a oficinas secretas)", "Reservar online", "Ticket combinado con otras venues de San Marcos", "Plan: 2-3 horas para verlo bien"],
+    info: {horario: "9:00-19:00", precio: "€30 combinado", duracion: "2-3 horas"},
+    wiki: "https://en.wikipedia.org/wiki/Doge%27s_Palace"
+  },
+  murano: {
+    title: "Murano",
+    subtitle: "Isla del vidrio veneciano",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Murano_sunset.JPG/1920px-Murano_sunset.JPG"],
+    desc: "Murano es una isla a 1.5km de Venecia, famosa por su vidrio soplado desde 1291 — cuando todos los vidrieros venecianos fueron exiliados aquí por riesgo de incendio. Las técnicas se pasaban de padre a hijo y eran secreto de estado (a quien las revelaba lo mataban). Hoy los maestros aún trabajan el vidrio en talleres familiares.",
+    highlights: ["Demostración de soplado de vidrio en un horno (gratis en muchos)", "Museo del Vetro (historia del vidrio veneciano)", "Tiendas de cristal hecho a mano (lámparas, joyas, vasos)", "Iglesia de Santi Maria e Donato (suelo de mosaico del siglo XII)"],
+    tips: ["Vaporetto línea 12 desde Fondamente Nove (~10 min)", "⚠️ Cuidado con tiendas falsas — el vidrio auténtico tiene el sello 'Vetro Artistico Murano'", "Muchos talleres dan demostración gratis pero esperan que compres", "Combinar con Burano en el mismo día"],
+    info: {desde_venecia: "10 min en vaporetto", precio_vaporetto: "Incluido en ticket día", duracion: "2-3 horas"},
+    wiki: "https://en.wikipedia.org/wiki/Murano"
+  },
+  burano: {
+    title: "Burano",
+    subtitle: "Pueblo de casas de colores",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Burano_Venice_17.jpg/3840px-Burano_Venice_17.jpg"],
+    desc: "Burano es una isla a 7km de Venecia, famosa por sus casitas pintadas en colores vivos (rojo, amarillo, azul, rosa). La leyenda dice que los pescadores las pintaban así para reconocer su casa desde el mar en días de niebla. Cada color debe pedirse permiso al gobierno antes de pintar. También es famosa por sus encajes (merletti) hechos a mano por siglos.",
+    highlights: ["Calles enteras de casas multicolor (¡fotogénicas!)", "Campanile de Burano (torre inclinada)", "Museo del Merletto (historia del encaje)", "Almorzar mariscos en un bacaro local"],
+    tips: ["⭐ Lugar más fotogénico de Venecia", "Vaporetto línea 12 desde Fondamente Nove (~45 min)", "Almorzar risotto di go (especialidad local con pescado de laguna)", "Probar los Bussolà o Esse (galletas tradicionales)"],
+    info: {desde_venecia: "45 min en vaporetto", duracion: "Medio día (combinado con Murano)"},
+    wiki: "https://en.wikipedia.org/wiki/Burano"
+  },
+  marienplatz: {
+    title: "Marienplatz",
+    subtitle: "Corazón de Múnich · Glockenspiel",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/7/73/Rathaus_and_Marienplatz_from_Peterskirche_-_August_2006.jpg"],
+    desc: "Marienplatz es la plaza central de Múnich, dominada por el Rathaus (ayuntamiento) neogótico. A las 11:00, 12:00 y 17:00 suena el Glockenspiel: 43 campanas y 32 figuras autómatas reenactan dos historias medievales (boda real y danza de los toneleros) durante 10-15 minutos. Es uno de los espectáculos turísticos más visitados de Europa.",
+    highlights: ["Rathaus-Glockenspiel (carrillón mecánico, 17:00 ideal)", "Columna de la Mariensäule (estatua dorada de María, 1638)", "Vista panorámica desde la torre del Rathaus (€6.50)", "Iglesia de San Pedro (Alter Peter, subir torre)"],
+    tips: ["⭐ Llegar 10 min antes del carrillón (17:00)", "Subir a la torre de Alter Peter para mejor vista de Marienplatz", "Está conectado a la red de S-Bahn y U-Bahn", "Cerca del Viktualienmarkt y la Hofbräuhaus"],
+    info: {horario: "Abierta 24h", precio: "Gratis", glockenspiel: "11:00, 12:00, 17:00"},
+    wiki: "https://en.wikipedia.org/wiki/Marienplatz"
+  },
+  hofbrauhaus: {
+    title: "Hofbräuhaus am Platzl",
+    subtitle: "La cervecería más famosa del mundo",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/6/60/Hofbrauhaus.JPG"],
+    desc: "El Hofbräuhaus es la cervecería más famosa del mundo, fundada en 1589 por el duque Guillermo V como cervecería real. Mozart escribió aquí parte de su 'Idomeneo', Lenin la frecuentaba durante su exilio, y Hitler dio aquí algunos de sus primeros discursos. Hoy es turística pero el ambiente y la cerveza Hofbräu son auténticos. Capacidad para ~3000 personas.",
+    highlights: ["Schwemme (sala principal con bandas en lederhosen)", "Probar la Maß (un litro de cerveza)", "Comida bávara: Weisswurst, Brezn, Schweinshaxe (codillo)", "Jardín cervecero (Biergarten) en verano"],
+    tips: ["⭐ Imperdible aunque sea turística — la experiencia bávara clásica", "Sentarse en la mesa donde haya espacio (mesas comunales)", "Pedir 'Maß Helles' (cerveza rubia de 1L) y Brezn (pretzel)", "Banda en vivo todas las noches"],
+    info: {horario: "11:00 - 23:30 todos los días", precio_cerveza: "~€10 la Maß (1L)", duracion: "1-2 horas"},
+    wiki: "https://en.wikipedia.org/wiki/Hofbr%C3%A4uhaus_am_Platzl"
+  },
+  deutsches_museum: {
+    title: "Deutsches Museum",
+    subtitle: "El mejor museo de ciencia del mundo · ⭐⭐⭐ PARA NIÑOS",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Deutsches_Museum_Portrait_4.jpg/3840px-Deutsches_Museum_Portrait_4.jpg"],
+    desc: "El Deutsches Museum es el museo de ciencia y tecnología más grande del mundo, con 28.000 objetos en 50 áreas diferentes: aviones (incluyendo el primer Junkers), submarinos (U-1 alemán de la WWI), trenes, naves espaciales, instrumentos musicales, óptica, química, electricidad. Es PARAÍSO para niños y adultos. Hay experimentos interactivos en cada sala. Necesitas todo un día.",
+    highlights: ["Submarino U-1 alemán (entrar adentro)", "Avión Junkers F.13 (primero comercial de aluminio del mundo)", "Sección de alta tensión (espectáculo de Tesla en vivo)", "Galileo's telescope, mecanismo de Anticitera", "Mina de carbón reconstruida (sótano)", "Hall espacial con Apollo, Sputnik réplicas"],
+    tips: ["⭐⭐ TODO EL DÍA — los chicos no querrán salir", "Es enorme: planificar 3-4 áreas máximo (no todas)", "Espectáculo de alta tensión: a las 11:00 y 14:00 (NO PERDERSE)", "Cafetería interna decente, también hay opciones afuera", "Audio guías en español"],
+    info: {horario: "9:00-17:00 todos los días", precio: "€15 adulto, €4 niños", duracion: "Todo el día"},
+    wiki: "https://en.wikipedia.org/wiki/Deutsches_Museum"
+  },
+  viktualienmarkt: {
+    title: "Viktualienmarkt",
+    subtitle: "Mercado gourmet al aire libre",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/0/0a/M%C3%BCnchen_Viktualienmarkt_2011.jpg"],
+    desc: "El Viktualienmarkt es el mercado gourmet más famoso de Múnich, abierto desde 1807. 140 puestos con frutas, verduras, quesos, embutidos, vinos, especias, miel, flores. En el centro hay un Biergarten enorme y mesas comunales donde se puede llevar comida comprada en los puestos y maridarla con cerveza.",
+    highlights: ["Biergarten central (1.000 asientos)", "Quesos y embutidos bávaros (probar Obatzda)", "Frutas frescas de temporada", "Maibaum (poste de mayo de 30m con escudos)", "Cervecerías rotan: cada 6 semanas distinta"],
+    tips: ["⭐ Almuerzo perfecto: comprar Weisswurst, Brezn y queso en los puestos + cerveza en el Biergarten", "Cerveza obligatoria si te sientas en el Biergarten (no puedes comer sin pedir bebida)", "Puedes llevar tu comida pero no traer tu propia bebida", "Mejor entre 11:00-14:00"],
+    info: {horario: "Lun-sáb 8:00-20:00", precio: "Variable", duracion: "1-2 horas"},
+    wiki: "https://en.wikipedia.org/wiki/Viktualienmarkt"
+  },
+  englischer_garten: {
+    title: "Englischer Garten",
+    subtitle: "El parque urbano más grande de Europa",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Aerial_image_of_Englischer_Garten_in_Munich_%28view_from_the_southwest%29.jpg/3840px-Aerial_image_of_Englischer_Garten_in_Munich_%28view_from_the_southwest%29.jpg"],
+    desc: "El Englischer Garten es el parque urbano más grande del mundo (4 km², más grande que Central Park). Diseñado en estilo inglés en 1789, cruza Múnich de norte a sur. Tiene biergartens enormes, una pagoda china (Chinesischer Turm), un templo griego (Monopteros con vista panorámica) y la famosa ola del Eisbach donde surfean.",
+    highlights: ["Chinesischer Turm (Biergarten con 7.000 asientos)", "Monopteros (vista panorámica de Múnich)", "Eisbachwelle (ola de surf — ver modal aparte)", "Seehaus en el lago Kleinhesseloher", "Nudistas en los prados (es completamente normal en Alemania)"],
+    tips: ["⭐ Plan ideal: bicicleta o caminar de sur a norte", "Almuerzo en Chinesischer Turm — música bávara en vivo", "El sur (Eisbach) es lo más visitado, el norte más tranquilo", "En verano lleno el domingo — ir entre semana es mejor"],
+    info: {tamaño: "4 km²", precio: "Gratis", duracion: "2-4 horas"},
+    wiki: "https://en.wikipedia.org/wiki/Englischer_Garten"
+  },
+  eisbach: {
+    title: "Eisbachwelle (Ola del Eisbach)",
+    subtitle: "Surf urbano en pleno Múnich",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/b/b1/Eisbach_surf_munich.jpg"],
+    desc: "El Eisbach es un canal artificial que atraviesa el Englischer Garten. En su entrada hay una ola estacionaria de 1m que surfistas locales aprovechan TODO el año (incluso en invierno con 2°C). Es de los pocos lugares del mundo donde puedes ver surf urbano en plena ciudad. Hay siempre 30-40 surfistas haciendo cola para tirarse. Espectáculo gratuito.",
+    highlights: ["Surfistas haciendo cola y turnándose", "Profesionales en pleno truco — algunos pros nacionales practican aquí", "Ambiente único: gente en lederhosen mirando junto a turistas", "Foto desde el puente sobre la ola"],
+    tips: ["⭐ Es gratis y abierto 24/7 (sí, hay surf hasta de noche bajo luces)", "Cerca de Marienplatz a pie (10-15 min)", "Solo expertos pueden surfear — peligroso (rocas debajo)", "Ideal para fotos: ola con surfista, edificios al fondo"],
+    info: {ubicacion: "Entrada sur Englischer Garten", precio: "Gratis (mirar)", duracion: "30 min"},
+    wiki: "https://en.wikipedia.org/wiki/Eisbach_(river)"
+  },
+  kelheim: {
+    title: "Kelheim",
+    subtitle: "Pueblo del Donaudurchbruch",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/2/23/Befreiungshalle-kelheim-aussen2.jpg"],
+    desc: "Kelheim es un pueblo bávaro a la entrada del Donaudurchbruch (Desfiladero del Danubio), un cañón donde el río ha tallado paredes calizas de 80m de altura. Desde el puerto de Kelheim parte el barco Schiffahrt hasta el monasterio Weltenburg — uno de los paseos en barco más bellos de Alemania. Encima del pueblo está el Befreiungshalle (Salón de la Liberación), un monumento neoclásico de 45m.",
+    highlights: ["Paseo en barco por el Donaudurchbruch (35 min)", "Befreiungshalle (Salón de la Liberación)", "Centro histórico medieval bávaro", "Confluencia de Danubio y río Altmühl"],
+    tips: ["⭐ Plan ideal: barco a Weltenburg, almorzar, regreso", "Comprar boleto barco antes en taquilla (€11/€16 ida-vuelta)", "Tren regional desde Múnich con cambio en Saal (Donau)", "Plan combinado: con Ratisbona el mismo día"],
+    info: {desde_munich: "2h en tren regional", barco: "€11 ida / €16 ida-vuelta", duracion: "Medio día"},
+    wiki: "https://en.wikipedia.org/wiki/Kelheim"
+  },
+  weltenburg: {
+    title: "Kloster Weltenburg",
+    subtitle: "Monasterio cervecero del año 1050",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/9/9f/Weltenburg_Abbey%2C_Bavaria.JPG"],
+    desc: "Weltenburg es la cervecería monástica EN OPERACIÓN más antigua del mundo (fundada en 1050). Los monjes benedictinos llevan elaborando cerveza casi 1000 años. La especialidad es la Weltenburger Kloster Barock Dunkel, una cerveza oscura premiada repetidamente como mejor cerveza oscura del mundo. La iglesia barroca interior (Asamkirche) es una joya con frescos espectaculares. Solo se llega en barco por el Danubio.",
+    highlights: ["Klosterschenke (taberna del monasterio, con jardín cervecero)", "Iglesia abacial barroca (interior espectacular)", "Cerveza Weltenburger Barock Dunkel (oscura, dulce, premiada)", "Vistas del desfiladero del Danubio"],
+    tips: ["⭐ Almuerzo + cerveza en el Biergarten del monasterio", "Llegar en barco desde Kelheim (única forma práctica)", "Probar varias cervezas — venden tabla degustación", "Llevar efectivo (algunos kioscos no aceptan tarjeta)"],
+    info: {desde_kelheim: "35 min en barco", almuerzo: "€15-25/persona", duracion: "2-3 horas en sitio"},
+    wiki: "https://en.wikipedia.org/wiki/Weltenburg_Abbey"
+  },
+  ratisbona: {
+    title: "Ratisbona (Regensburg)",
+    subtitle: "Ciudad medieval Patrimonio UNESCO",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Regensburger_Altstadt_von_oben_.jpg/3840px-Regensburger_Altstadt_von_oben_.jpg"],
+    desc: "Regensburg (Ratisbona) es una ciudad medieval increíblemente conservada, Patrimonio UNESCO. Sobrevivió a la WWII sin daños mayores y mantiene su centro histórico con casas de los siglos XIV-XVI. Fundada por los romanos en el 179 d.C. (Castra Regina), tiene el puente medieval más antiguo de Alemania (Steinerne Brücke, 1146). La Catedral gótica (Dom St. Peter) es una de las más bellas.",
+    highlights: ["Steinerne Brücke (puente de piedra de 1146)", "Dom St. Peter (catedral gótica)", "Altes Rathaus (ayuntamiento antiguo)", "Wurstkuchl (puesto de salchichas operando desde 1146!)", "Schloss St. Emmeram (palacio de los Thurn und Taxis)"],
+    tips: ["⭐ Cenar en el Wurstkuchl (puesto de salchichas más antiguo del mundo, junto al río)", "Tour por el centro histórico (1-2 horas)", "Catedral con misa con los Regensburger Domspatzen (coro famoso, domingos)", "Plan ideal: desde Kelheim al regreso"],
+    info: {desde_kelheim: "30 min en tren", desde_munich: "1h 30min directo", duracion: "Tarde/noche"},
+    wiki: "https://en.wikipedia.org/wiki/Regensburg"
+  },
+  salzburgo: {
+    title: "Salzburgo",
+    subtitle: "Ciudad de Mozart · Sonrisas y lágrimas",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Salzburg_%2848489551981%29.jpg/3840px-Salzburg_%2848489551981%29.jpg"],
+    desc: "Salzburgo es una joya barroca a los pies de los Alpes austríacos, Patrimonio UNESCO. Cuna de Mozart, escenario de 'Sonrisas y lágrimas' (The Sound of Music), capital del festival de música clásica más importante de Europa. Su 'Altstadt' (casco antiguo) es una postal: callecitas, casas barrocas, la fortaleza Hohensalzburg dominando todo desde lo alto.",
+    highlights: ["Festung Hohensalzburg (modal aparte)", "Mozart Geburtshaus (casa natal de Mozart)", "Mirabellgarten (modal aparte)", "Getreidegasse (calle peatonal con balcones de hierro forjado)", "Dom (catedral barroca)", "Salzach (río que cruza la ciudad)"],
+    tips: ["⭐ Tour 'Sonrisas y lágrimas' (Sound of Music tour) si es fan", "Tarjeta Salzburg Card 24h: €30, incluye atracciones + transporte", "Probar Mozartkugel (chocolate redondo)", "Solo 90 min en tren desde Múnich"],
+    info: {desde_munich: "1h 30min en Railjet ÖBB", precio_tren: "€30-45 ida adulto", duracion: "Día completo"},
+    wiki: "https://en.wikipedia.org/wiki/Salzburg"
+  },
+  hohensalzburg: {
+    title: "Festung Hohensalzburg",
+    subtitle: "Una de las fortalezas más grandes de Europa",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Salzburg_-_Festung_Hohensalzburg.JPG/3840px-Salzburg_-_Festung_Hohensalzburg.JPG"],
+    desc: "La Hohensalzburg es una de las fortalezas medievales más grandes de Europa, dominando Salzburgo desde 1077. Nunca fue conquistada por enemigos. Residencia de los príncipes-arzobispos, hoy tiene varios museos militares, los apartamentos principescos, vistas panorámicas espectaculares y un funicular que sube en 1 minuto.",
+    highlights: ["Funicular Festungsbahn (€13 ida-vuelta, vale la pena)", "Apartamentos principescos con frescos góticos", "Museo de la fortaleza (armas, armaduras)", "Vistas 360° de Salzburgo y los Alpes", "Marionetas exposición"],
+    tips: ["⭐ Subir en funicular, bajar caminando (vistas distintas)", "Ticket combinado: funicular + entrada + museos (€16,30)", "Mejor luz para fotos: media tarde", "Cerveza/comida en el restaurante del castillo con vistas"],
+    info: {acceso: "Funicular o caminata 20 min", precio: "€16,30 combinado", duracion: "1.5-2 horas"},
+    wiki: "https://en.wikipedia.org/wiki/Hohensalzburg_Fortress"
+  },
+  mirabell: {
+    title: "Mirabellgarten · Schloss Mirabell",
+    subtitle: "Jardín de 'Do-Re-Mi' (Sonrisas y lágrimas)",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/9/9e/Palatul_Mirabell1.jpg"],
+    desc: "El Mirabellgarten es uno de los jardines barrocos más bellos de Europa, construido en 1606 por el arzobispo Wolf Dietrich para su amante Salome. Los fans de 'Sonrisas y lágrimas' lo reconocerán al instante: aquí Maria y los niños cantan 'Do-Re-Mi' alrededor de la fuente Pegasus. La Marmorsaal (Sala de Mármol) del palacio es uno de los lugares más bellos para bodas en Europa.",
+    highlights: ["Fuente Pegasus (escena 'Do-Re-Mi')", "Escaleras donde la familia von Trapp baila", "Pergola con vista a la Festung Hohensalzburg", "Marmorsaal (sala de mármol del palacio)", "Jardín de los enanos (estatuas grotescas barrocas)"],
+    tips: ["⭐ Foto obligatoria con la Festung al fondo", "Gratis", "Mejor luz para fotos: mañana", "Combinar con caminata por la Linzer Gasse"],
+    info: {horario: "Jardín abierto 24h", precio: "Gratis", duracion: "45 min"},
+    wiki: "https://en.wikipedia.org/wiki/Mirabell_Palace"
+  },
+  chamonix: {
+    title: "Chamonix-Mont-Blanc",
+    subtitle: "Capital del montañismo · A los pies del Mont Blanc",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/1/1f/Chamonix_valley_from_la_Fl%C3%A9g%C3%A8re%2C2010_07.JPG"],
+    desc: "Chamonix es la cuna del alpinismo moderno y sede de los primeros Juegos Olímpicos de Invierno (1924). Pueblo pintoresco en el valle del río Arve, dominado por el Mont Blanc (4810m, el techo de los Alpes). Desde aquí parten teleféricos espectaculares: Aiguille du Midi, Mer de Glace, Brevent. En verano: senderismo, parapente, escalada. Argentière es el pueblo vecino (3km al norte), más tranquilo y con la zona de Grands Montets.",
+    highlights: ["Aiguille du Midi (modal aparte)", "Mer de Glace (glaciar, accesible en tren cremallera)", "Brevent y Flegere (vistas frontales del Mont Blanc)", "Centro de Chamonix (peatonal con tiendas y restaurantes)", "Maison de la Montagne (museo del montañismo)"],
+    tips: ["⭐ Argentière está a solo 3 km de Chamonix — bus o tren gratis del valle", "Pase Multi-Pass para todos los teleféricos", "Reservar Aiguille du Midi online", "Comer fondue, raclette, tartiflette — comida alpina pesada pero deliciosa"],
+    info: {altitud: "1.035m", desde_ginebra: "1h 15min shuttle", duracion: "Base 5 noches"},
+    wiki: "https://en.wikipedia.org/wiki/Chamonix"
+  },
+  argentiere: {
+    title: "Argentière",
+    subtitle: "Pueblo de los Alpes franceses · Boda 🥂",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Argenti%C3%A8re_-_Aiguilles_Rouges.jpg/3840px-Argenti%C3%A8re_-_Aiguilles_Rouges.jpg"],
+    desc: "Argentière es un pueblo de 600 habitantes en el valle de Chamonix, a 1.252m de altitud. Más tranquilo y auténtico que Chamonix, está rodeado por las cumbres más altas: Aiguille du Chardonnet, Aiguille Verte, el glaciar de Argentière. Desde aquí sube el teleférico a Grands Montets (3.275m), una de las áreas de esquí más espectaculares de los Alpes (en verano, plataforma de mirador).",
+    highlights: ["Iglesia con cementerio antiguo (vistas)", "Grands Montets (teleférico a 3.275m)", "Glaciar de Argentière (sendero)", "Centro del pueblo (peatonal, restaurantes alpinos)"],
+    tips: ["A 3km del centro de Chamonix — bus 2 conecta cada 15-30 min", "Aire de pueblo de montaña genuino", "Boda 🥂 perfecto entorno alpino"],
+    info: {altitud: "1.252m", poblacion: "600 hab.", desde_chamonix: "5 min en auto / bus"},
+    wiki: "https://en.wikipedia.org/wiki/Argenti%C3%A8re,_Haute-Savoie"
+  },
+  mont_blanc: {
+    title: "Mont Blanc",
+    subtitle: "El techo de los Alpes · 4.810m",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/a/a2/Mont_Blanc_Aiguille.jpg"],
+    desc: "El Mont Blanc (4.810m) es la cumbre más alta de los Alpes y de Europa Occidental. Frontera entre Francia e Italia, fue escalado por primera vez en 1786 (inicio del alpinismo moderno). Tiene 3 glaciares principales: Bossons, Argentière y Mer de Glace. Está cubierto de nieve eternamente y desde Chamonix ofrece vistas espectaculares cada día. El túnel del Mont Blanc lo perfora por debajo conectando Francia con Italia.",
+    highlights: ["Cumbre vista desde Chamonix (en clima despejado)", "Mer de Glace (glaciar de 7km)", "Aiguille du Midi (modal aparte, 3.842m, vista frontal)", "Túnel del Mont Blanc (11.6 km a Italia, €55 auto ida)"],
+    tips: ["⭐ Solo escalan alpinistas experimentados (no para nosotros)", "Ver desde Aiguille du Midi es lo más cerca que llegaremos", "En clima despejado: vista desde el centro de Chamonix también es espectacular", "Mer de Glace está retrocediendo dramáticamente por el cambio climático"],
+    info: {altitud: "4.810m", paises: "Francia / Italia", primera_ascension: "8 agosto 1786"},
+    wiki: "https://en.wikipedia.org/wiki/Mont_Blanc"
+  },
+  aiguille_midi: {
+    title: "Aiguille du Midi",
+    subtitle: "Teleférico a 3.842m · ⭐⭐ Imperdible",
+    photos: ["https://upload.wikimedia.org/wikipedia/commons/0/0f/Aiguille-du-Midi-sundown.JPG"],
+    desc: "La Aiguille du Midi (3.842m) es uno de los miradores más espectaculares del mundo. Desde Chamonix (1.035m), un teleférico te sube en 20 minutos a través de paredes verticales hasta la cima — el segundo desnivel más largo del mundo en teleférico. En la cima: vista del Mont Blanc a un brazo de distancia, plataforma de cristal 'Step into the Void' donde caminas sobre el vacío con 1.000m bajo los pies, restaurante panorámico.",
+    highlights: ["Vista frontal del Mont Blanc (incluyendo el glaciar de los Bossons)", "Step Into the Void (cubo de cristal sobre 1.000m de vacío)", "Plataforma panorámica con vista 360° de los Alpes", "Túnel hacia el Helbronner (teleférico a Italia, en clima bueno)"],
+    tips: ["⭐ RESERVAR ONLINE en webcam de Chamonix antes (depende del clima)", "Ropa: hace -5 a +10°C en la cima EN VERANO — abrigo, gorro, guantes", "Hay riesgo de mal de altura — subir con calma, no comer pesado antes", "Si tienen tiempo y clima ideal: continuar al Helbronner (Italia) por teleféricos sobre los glaciares"],
+    info: {altitud: "3.842m", duracion_subida: "20 min en 2 teleféricos", precio: "€73 ida-vuelta adulto"},
+    wiki: "https://en.wikipedia.org/wiki/Aiguille_du_Midi"
+  }
+};
+
+// ============ MODAL LOGIC ============
+function openModal(id) {
+  const place = PLACES[id];
+  if (!place) return;
+  document.getElementById('modal-title').textContent = place.title;
+  document.getElementById('modal-subtitle').textContent = place.subtitle || '';
+
+  let html = '';
+
+  // Photos carousel
+  if (place.photos && place.photos.length) {
+    html += '<div class="modal-photos">';
+    place.photos.forEach(src => {
+      html += `<img src="${src}" alt="${place.title}" loading="lazy" onerror="this.style.display='none'">`;
+    });
+    html += '</div>';
+  }
+
+  html += '<div class="modal-content">';
+
+  if (place.desc) {
+    html += `<div class="modal-section"><p>${place.desc}</p></div>`;
+  }
+
+  if (place.highlights && place.highlights.length) {
+    html += '<div class="modal-section"><h4>Qué ver / hacer</h4><ul class="modal-list">';
+    place.highlights.forEach(h => { html += `<li>${h}</li>`; });
+    html += '</ul></div>';
+  }
+
+  if (place.tips && place.tips.length) {
+    html += '<div class="modal-section"><h4>💡 Tips prácticos</h4>';
+    place.tips.forEach(t => { html += `<div class="modal-tip">${t}</div>`; });
+    html += '</div>';
+  }
+
+  if (place.info) {
+    html += '<div class="modal-section"><h4>Datos prácticos</h4><div class="modal-info-grid">';
+    for (const k in place.info) {
+      const label = k.replace(/_/g, ' ');
+      html += `<div class="modal-info-item"><strong>${label}</strong>${place.info[k]}</div>`;
+    }
+    html += '</div></div>';
+  }
+
+  html += '</div>';
+
+  document.getElementById('modal-body').innerHTML = html;
+
+  // Links
+  let links = '';
+  if (place.wiki) links += `<a class="btn" href="${place.wiki}" target="_blank" rel="noopener">📖 Wikipedia</a>`;
+  links += `<a class="btn btn-maps" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.title)}" target="_blank" rel="noopener">📍 Ver en Maps</a>`;
+  document.getElementById('modal-links').innerHTML = links;
+
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+// ============ EXISTING UI ============
+document.querySelectorAll('.day-header').forEach(h => {
+  h.addEventListener('click', () => {
+    h.parentElement.classList.toggle('open');
+  });
+});
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const action = btn.dataset.filter;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    if (action === 'open') {
+      document.querySelectorAll('.day').forEach(d => d.classList.add('open'));
+    } else if (action === 'close') {
+      document.querySelectorAll('.day').forEach(d => d.classList.remove('open'));
+    }
+  });
+});
+
+document.querySelectorAll('.nav-pills a').forEach(a => {
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+const first = document.querySelector('.day');
+if (first) first.classList.add('open');
+</script>
+
+</body>
+</html>
